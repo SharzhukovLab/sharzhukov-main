@@ -84,7 +84,7 @@ class UserProjectForm
                 Section::make('Metadata')
                     ->schema([
                         TagsInput::make('tech_stack')
-                            ->maxTags(15)
+                            
                             ->placeholder('Type and press Enter'),
 
                         TextInput::make('license')
