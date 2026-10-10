@@ -14,22 +14,18 @@ class ProductController extends Controller
     {
         $source = $request->get('source', 'all');
 
-        // ── Local products (ручные / импортированные) ──
+        // ── Local products (curated) ──
         $localProducts = Product::query()
-            ->when(method_exists(Product::class, 'scopeActive'),
-                fn ($q) => $q->active())
-            ->when(in_array('sort_order', (new Product)->getFillable()),
-                fn ($q) => $q->orderBy('sort_order'))
-            ->when(in_array('is_featured', (new Product)->getFillable()),
-                fn ($q) => $q->orderByDesc('is_featured'))
-            ->orderByDesc('id')
+            ->where('is_visible', true)
+            ->orderBy('sort_order')
+            ->orderBy('name')
             ->get();
 
-        // ── GitHub repos ──
+        // ── GitHub repos (live) ──
         $githubRepos = [];
         if ($source === 'all' || $source === 'github') {
             try {
-                $githubRepos = Cache::remember('products.github', 1800, function () {
+                $githubRepos = Cache::remember('products.github.v1', 1800, function () {
                     return app(GithubService::class)->repos(50);
                 });
             } catch (\Throwable $e) {
@@ -37,7 +33,7 @@ class ProductController extends Controller
             }
         }
 
-        // ── Фильтрация ──
+        // ── Filtering by source ──
         if ($source === 'manual') {
             $githubRepos = [];
         } elseif ($source === 'github') {

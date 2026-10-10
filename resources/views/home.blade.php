@@ -55,7 +55,7 @@
                             <span class="brutal-terminal-line"><span class="ok">✓</span> <span class="dim">342 objects received, 1.2 MiB</span></span>
                             <span class="brutal-terminal-line" style="margin-top:10px;"><span class="prompt">$</span> cd lab-ui && npm install</span>
                             <span class="brutal-terminal-line"><span class="ok">✓</span> <span class="dim">Ready in 1.2s</span></span>
-                            <span class="brutal-terminal-line" style="margin-top:14px;"><span class="accent">→</span> {{ $stats['projects'] }} {{ \Illuminate\Support\Str::plural('project', $stats['projects']) }} live</span>
+                            <span class="brutal-terminal-line" style="margin-top:14px;"><span class="accent">→</span> @if($stats['projects'] > 0){{ $stats['projects'] }} {{ \Illuminate\Support\Str::plural('project', $stats['projects']) }} live @else open source · EU · GDPR @endif</span>
                             <span class="brutal-terminal-line"><span class="accent">→</span> 48 contributors</span>
                             <span class="brutal-terminal-line"><span class="accent">→</span> 100% open source</span>
                             <span class="brutal-terminal-line" style="margin-top:14px;"><span class="prompt">$</span> <span class="brutal-cursor"></span></span>

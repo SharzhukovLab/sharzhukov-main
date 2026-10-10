@@ -37,15 +37,19 @@
             </div>
         @else
 
-            {{-- CURATED (из Product модели) --}}
+            {{-- CURATED --}}
             @if($localProducts->isNotEmpty())
                 <h2 style="margin:0 0 24px;font-family:var(--font-sans);font-weight:900;font-size:24px;letter-spacing:-0.02em;">
                     // CURATED
                 </h2>
                 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;margin-bottom:56px;">
                     @foreach($localProducts as $product)
-                        <a href="{{ $product->url ?? $product->github_url ?? '#' }}"
-                           @if(($product->url ?? $product->github_url ?? null)) target="_blank" rel="noopener" @endif
+                        @php
+                            $href = $product->url ?: '#';
+                            $isExternal = (bool) $product->url;
+                        @endphp
+                        <a href="{{ $href }}"
+                           @if($isExternal) target="_blank" rel="noopener" @endif
                            style="text-decoration:none;color:inherit;">
                             <div style="border:2px solid var(--brutal-border);background:var(--lab-bg-elevated);box-shadow:4px 4px 0 var(--brutal-shadow);padding:24px;height:100%;display:flex;flex-direction:column;gap:12px;transition:all .15s ease;"
                                  onmouseover="this.style.transform='translate(-3px,-3px)';this.style.boxShadow='7px 7px 0 var(--brutal-shadow)';"
@@ -53,22 +57,22 @@
 
                                 <div style="display:flex;justify-content:space-between;align-items:start;gap:12px;">
                                     <h3 style="margin:0;font-family:var(--font-sans);font-weight:900;font-size:18px;letter-spacing:-0.01em;">
-                                        {{ $product->name ?? $product->title ?? 'Untitled' }}
+                                        {{ $product->name }}
                                     </h3>
-                                    <span class="brutal-marker" style="font-size:9px;">CURATED</span>
+                                    <span class="brutal-marker" style="font-size:9px;">{{ strtoupper($product->icon ?? 'CURATED') }}</span>
                                 </div>
 
-                                @if($product->tagline ?? $product->description ?? null)
-                                    <p style="margin:0;color:var(--lab-fg-muted);font-size:14px;line-height:1.55;flex:1;">
-                                        {{ \Illuminate\Support\Str::limit($product->tagline ?? $product->description, 140) }}
+                                @if($product->tagline)
+                                    <p style="margin:0;color:var(--lab-fg);font-size:14px;line-height:1.5;font-weight:600;">
+                                        {{ $product->tagline }}
                                     </p>
                                 @endif
 
-                                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:12px;border-top:1px dashed var(--brutal-border);font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--lab-fg-muted);">
-                                    @if(!empty($product->status_label))<span>● {{ $product->status_label }}</span>@endif
-                                    @if(!empty($product->license))<span>{{ $product->license }}</span>@endif
-                                    @if(!empty($product->category))<span>{{ $product->category }}</span>@endif
-                                </div>
+                                @if($product->description)
+                                    <p style="margin:0;color:var(--lab-fg-muted);font-size:13px;line-height:1.55;flex:1;">
+                                        {{ \Illuminate\Support\Str::limit($product->description, 160) }}
+                                    </p>
+                                @endif
                             </div>
                         </a>
                     @endforeach
@@ -105,9 +109,6 @@
                                     @if($repo['language'])<span>● {{ $repo['language'] }}</span>@endif
                                     <span>★ {{ $repo['stars'] }}</span>
                                     <span>⑂ {{ $repo['forks'] }}</span>
-                                    @if($repo['updated_at'])
-                                        <span>{{ \Carbon\Carbon::parse($repo['updated_at'])->diffForHumans() }}</span>
-                                    @endif
                                 </div>
                             </div>
                         </a>
