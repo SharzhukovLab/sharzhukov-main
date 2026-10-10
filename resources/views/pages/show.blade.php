@@ -13,5 +13,10 @@
 
     <article style="max-width:820px;margin:0 auto;padding:48px 24px 80px;">
         <div class="lab-prose">{!! $page->content !!}</div>
+
+        @if($page->slug === 'about')
+            @include('pages._team')
+            @include('pages._github')
+        @endif
     </article>
 </x-layouts.public>

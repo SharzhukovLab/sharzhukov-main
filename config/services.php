@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'github' => [
+        'org'       => env('GITHUB_ORG', 'SharzhukovLab'),
+        'token'     => env('GITHUB_TOKEN'),
+        'cache_ttl' => (int) env('GITHUB_CACHE_TTL', 3600),
+    ],
 ];
