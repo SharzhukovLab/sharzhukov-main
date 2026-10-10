@@ -53,10 +53,29 @@
             </div>
         </a>
 
+        @php
+            $navItems = \App\Models\Setting::get('nav.items') ?? [
+                ['label' => 'Projects', 'url' => '/projects', 'external' => false],
+                ['label' => 'News',     'url' => '/news',     'external' => false],
+                ['label' => 'About',    'url' => '/about',    'external' => false],
+                ['label' => 'Wiki',     'url' => 'https://wiki-main.sharzhukov.com', 'external' => true],
+            ];
+        @endphp
         <div style="flex:1;display:flex;gap:4px;margin-left:16px;">
-            <a href="{{ url('/projects') }}" class="brutal-nav-link {{ request()->is('projects*') ? 'active' : '' }}">Projects</a>
-            <a href="{{ url('/news') }}" class="brutal-nav-link {{ request()->is('news*') ? 'active' : '' }}">News</a>
-            <a href="https://wiki-main.sharzhukov.com" class="brutal-nav-link" target="_blank">Wiki ↗</a>
+            @foreach($navItems as $item)
+                @php
+                    $url = $item['url'] ?? '#';
+                    $isExternal = !empty($item['external']);
+                    $absUrl = \Illuminate\Support\Str::startsWith($url, ['http://', 'https://']) ? $url : url($url);
+                    $pathOnly = ltrim(parse_url($url, PHP_URL_PATH) ?? '', '/');
+                    $isActive = !$isExternal && $pathOnly && request()->is($pathOnly . '*');
+                @endphp
+                <a href="{{ $absUrl }}"
+                   class="brutal-nav-link {{ $isActive ? 'active' : '' }}"
+                   @if($isExternal) target="_blank" @endif>
+                    {{ $item['label'] }}@if($isExternal) ↗@endif
+                </a>
+            @endforeach
         </div>
 
         <button type="button" class="lab-theme-toggle" onclick="toggleLabTheme()" aria-label="Toggle theme" style="border:2px solid var(--brutal-border);border-radius:0;box-shadow:2px 2px 0 var(--brutal-shadow);">

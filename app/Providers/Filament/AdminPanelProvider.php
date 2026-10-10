@@ -2,15 +2,17 @@
 
 namespace App\Providers\Filament;
 
+use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages\Dashboard;
 use Filament\Navigation\MenuItem;
+use Filament\Navigation\NavigationGroup;
+use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use App\Filament\Admin\Widgets\LabStatsOverview;
+use Filament\Support\Enums\Width;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -27,8 +29,13 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->id('admin')
             ->path('admin')
+            ->brandName("// SHARZHUKOV'S LAB")
             ->brandLogo(asset('img/branding/core-white.png'))
-            ->brandLogoHeight('2rem')
+            ->brandLogoHeight('1.75rem')
+            ->favicon(asset('favicon.ico'))
+            ->defaultThemeMode(ThemeMode::System)
+            ->sidebarCollapsibleOnDesktop()
+            ->maxContentWidth(Width::Full)
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Public site')
@@ -41,11 +48,16 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-user-circle')
                     ->openUrlInNewTab(),
             ])
-            ->brandName("Sharzhukov's Laboratory")
             ->colors([
                 'primary' => Color::hex('#ff5c1f'),
             ])
             ->viteTheme('resources/css/filament/admin/theme.css')
+            ->navigationGroups([
+                NavigationGroup::make('Content')->collapsible(false),
+                NavigationGroup::make('Community')->collapsible(false),
+                NavigationGroup::make('Wiki')->collapsible(false),
+                NavigationGroup::make('Site')->collapsible(false),
+            ])
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\Filament\Admin\Resources')
             ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\Filament\Admin\Pages')
             ->pages([
@@ -53,7 +65,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\Filament\Admin\Widgets')
             ->widgets([
-                LabStatsOverview::class,
                 AccountWidget::class,
                 FilamentInfoWidget::class,
             ])

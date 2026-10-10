@@ -9,8 +9,8 @@
 @if(!empty($repos))
     <h2>Open source</h2>
     <p>
-        All our code lives on GitHub — {{ $count ?: count($repos) }} public repositories,
-        MIT or AGPL licensed. Browse, star, fork, send PRs.
+        All our code lives on GitHub — {{ $count ?: count($repos) }} public repositories.
+        Browse, star, fork, send PRs.
     </p>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:32px 0;">

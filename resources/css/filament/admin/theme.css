@@ -1,207 +1,188 @@
-/* ==========================================================
-   Filament 4 admin theme — Sharzhukov's Laboratory
-   Lab-ui tokens + Filament theme + custom orange primary
-   ========================================================== */
-
-/* 1. Filament's base theme (Tailwind v4 + Filament components) */
 @import '../../../../vendor/filament/filament/resources/css/theme.css';
-
-/* 2. Our design system — tokens, buttons, cards, etc. */
 @import '../../../../vendor/sharzhukov/lab-ui/resources/css/lab.css';
+@import '../../../../vendor/sharzhukov/lab-ui/resources/css/brutal.css';
 
-/* 3. Scan our Filament code for class names */
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
-@source '../../../../vendor/sharzhukov/lab-ui/resources/views/**/*';
+@source '../../../../vendor/filament/**/*.blade.php';
+@source '../../../../vendor/sharzhukov/lab-ui/resources/views';
 
-/* ==========================================================
-   Overrides — bring Filament into lab-ui aesthetic
-   ========================================================== */
+/* ═══════════════ BRUTAL ADMIN THEME ═══════════════ */
 
-/* Force Inter across the panel */
-.fi-body,
-.fi-sidebar,
-.fi-topbar {
-    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+@theme {
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
-/* Softer corners everywhere */
-.fi-sidebar-item,
-.fi-btn,
-.fi-input,
-.fi-ta-cell,
-.fi-section,
-.fi-wi-stats-overview-stat,
-.fi-fo-component-ctn {
-    border-radius: 10px;
-}
+*, *::before, *::after { border-radius: 0 !important; }
 
-/* Sidebar — closer to our card aesthetic */
 .fi-sidebar {
-    background: var(--lab-bg-elevated);
-    border-right: 1px solid var(--lab-border);
+    background: #0a0b12 !important;
+    border-right: 2px solid #ff5c1f !important;
 }
-
-.fi-sidebar-item-active {
-    background: rgba(255, 92, 31, 0.1) !important;
-    color: #ff5c1f !important;
+.fi-sidebar-header {
+    border-bottom: 2px solid #ff5c1f !important;
+    background: #0a0b12 !important;
 }
-
-/* Topbar — subtle, minimal */
-.fi-topbar {
-    border-bottom: 1px solid var(--lab-border);
-}
-
-/* Primary buttons and accents get our orange */
-.fi-btn-color-primary {
-    --c-400: 255 92 31;
-    --c-500: 234 74 15;
-    --c-600: 194 65 12;
-}
-
-/* Links + focus rings */
-.fi-link,
-.fi-ac-link {
-    color: #ea4a0f;
-}
-.fi-link:hover,
-.fi-ac-link:hover {
-    color: #c2410c;
-}
-
-/* Widget cards — border-first like lab-ui */
-.fi-wi-stats-overview-stat,
-.fi-section {
-    border: 1px solid var(--lab-border);
-    box-shadow: none;
-    background: var(--lab-bg);
-}
-
-.fi-section-header {
-    border-bottom: 1px solid var(--lab-border);
-}
-
-/* ==========================================================
-   Global brutal overrides — фикс "разъезжающейся" вёрстки
-   ========================================================== */
-
-/* Убрать все дефолтные radius Filament */
-.fi-btn,
-.fi-input-wrp,
-.fi-input,
-.fi-section,
-.fi-wi-stats-overview-stat,
-.fi-ta-cell,
-.fi-dropdown-panel,
-.fi-modal-window,
-.fi-fo-component-ctn,
-.fi-badge,
-.fi-fo-rich-editor,
-.fi-fo-rich-editor-toolbar,
-.fi-sidebar-item,
-.fi-sidebar-item-button,
-.fi-ta-ctn,
-.fi-pagination,
-.fi-avatar,
-.fi-icon-btn {
-    border-radius: 0 !important;
-}
-
-/* Shadow на основные блоки */
-.fi-section,
-.fi-wi-stats-overview-stat,
-.fi-ta-ctn {
-    box-shadow: 4px 4px 0 var(--brutal-shadow) !important;
-    border: 2px solid var(--brutal-border) !important;
-}
-
-/* Кнопки с offset-shadow */
-.fi-btn {
-    box-shadow: 3px 3px 0 var(--brutal-shadow) !important;
-    font-family: var(--font-mono) !important;
+.fi-sidebar-group-label,
+.fi-sidebar-item-label,
+.fi-sidebar .fi-logo {
+    color: #f0f0f0 !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
     font-size: 12px !important;
+}
+.fi-sidebar-group-label { color: #ff5c1f !important; font-weight: 700; }
+.fi-sidebar-item { border-left: 3px solid transparent; transition: all 0.15s ease; }
+.fi-sidebar-item:hover {
+    background: rgba(255,92,31,0.08) !important;
+    border-left-color: #ff5c1f;
+}
+.fi-sidebar-item.fi-active,
+.fi-sidebar-item[aria-current="page"] {
+    background: rgba(255,92,31,0.15) !important;
+    border-left-color: #ff5c1f !important;
+}
+.fi-sidebar-item.fi-active .fi-sidebar-item-label,
+.fi-sidebar-item[aria-current="page"] .fi-sidebar-item-label {
+    color: #ff5c1f !important; font-weight: 900;
+}
+.fi-sidebar-item-icon { color: #f0f0f0 !important; }
+.fi-sidebar-item.fi-active .fi-sidebar-item-icon,
+.fi-sidebar-item[aria-current="page"] .fi-sidebar-item-icon { color: #ff5c1f !important; }
+
+.fi-topbar {
+    background: #ffffff !important;
+    border-bottom: 2px solid #0a0b12 !important;
+}
+.dark .fi-topbar {
+    background: #0a0b12 !important;
+    border-bottom-color: #ff5c1f !important;
+}
+
+.fi-main, .fi-body { background: #ffffff; }
+.dark .fi-main, .dark .fi-body { background: #0a0b12; }
+
+.fi-btn {
+    border-radius: 0 !important;
+    border: 2px solid #0a0b12 !important;
+    font-family: 'JetBrains Mono', monospace !important;
     font-weight: 700 !important;
-    letter-spacing: 0.04em !important;
-    transition: all .12s ease !important;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 12px !important;
+    box-shadow: 3px 3px 0 #0a0b12 !important;
+    transition: all 0.15s ease !important;
+    padding: 8px 16px !important;
 }
 .fi-btn:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0 var(--brutal-shadow) !important;
+    transform: translate(-2px,-2px);
+    box-shadow: 5px 5px 0 #0a0b12 !important;
 }
-.fi-btn:active {
-    transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0 var(--brutal-shadow) !important;
+.dark .fi-btn {
+    border-color: #f0f0f0 !important;
+    box-shadow: 3px 3px 0 #ff5c1f !important;
+}
+.dark .fi-btn:hover { box-shadow: 5px 5px 0 #ff5c1f !important; }
+.fi-btn-color-primary { background: #ff5c1f !important; color: #ffffff !important; }
+.fi-btn-color-danger  { background: #dc2626 !important; }
+
+.fi-input, .fi-select, .fi-textarea, .fi-input-wrp {
+    border-radius: 0 !important;
+    border: 2px solid #0a0b12 !important;
+    background: #ffffff !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 13px !important;
+}
+.fi-input:focus, .fi-select:focus, .fi-textarea:focus {
+    outline: none !important;
+    box-shadow: 3px 3px 0 #ff5c1f !important;
+    border-color: #ff5c1f !important;
+}
+.dark .fi-input, .dark .fi-select, .dark .fi-textarea, .dark .fi-input-wrp {
+    border-color: #f0f0f0 !important;
+    background: #12131c !important;
+    color: #f0f0f0 !important;
 }
 
-/* Sidebar — чётче */
-.fi-sidebar {
-    border-right: 2px solid var(--brutal-border) !important;
+.fi-section, .fi-wi-stats-overview-stat, .fi-ta {
+    border-radius: 0 !important;
+    border: 2px solid #0a0b12 !important;
+    box-shadow: 4px 4px 0 #0a0b12 !important;
+    background: #ffffff !important;
 }
-.fi-sidebar-item-active {
-    background: var(--brutal-accent) !important;
-    color: #fff !important;
-}
-.fi-sidebar-item-active svg,
-.fi-sidebar-item-active .fi-sidebar-item-label {
-    color: #fff !important;
+.dark .fi-section, .dark .fi-wi-stats-overview-stat, .dark .fi-ta {
+    border-color: #f0f0f0 !important;
+    box-shadow: 4px 4px 0 #ff5c1f !important;
+    background: #12131c !important;
 }
 
-/* Stat cards — крупнее цифры */
-.fi-wi-stats-overview-stat-value {
-    font-family: var(--font-mono) !important;
+.fi-ta-header-cell {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 11px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     font-weight: 700 !important;
+    border-bottom: 2px solid #0a0b12 !important;
+}
+.dark .fi-ta-header-cell { border-bottom-color: #f0f0f0 !important; }
+.fi-ta-row { border-bottom: 1px solid rgba(10,11,18,0.08) !important; }
+.fi-ta-row:hover { background: rgba(255,92,31,0.04) !important; }
+.dark .fi-ta-row:hover { background: rgba(255,92,31,0.08) !important; }
+
+.fi-badge {
+    border-radius: 0 !important;
+    border: 2px solid currentColor !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    padding: 2px 8px !important;
+}
+
+.fi-modal-window {
+    border-radius: 0 !important;
+    border: 3px solid #0a0b12 !important;
+    box-shadow: 8px 8px 0 #0a0b12 !important;
+}
+.dark .fi-modal-window {
+    border-color: #ff5c1f !important;
+    box-shadow: 8px 8px 0 #ff5c1f !important;
+}
+
+.fi-dropdown-panel {
+    border-radius: 0 !important;
+    border: 2px solid #0a0b12 !important;
+    box-shadow: 4px 4px 0 #0a0b12 !important;
+}
+
+.fi-header-heading, .fi-section-header-heading, h1, h2, h3, h4 {
+    font-family: 'Inter', system-ui, sans-serif !important;
+    font-weight: 900 !important;
     letter-spacing: -0.02em !important;
 }
 
-/* Topbar */
-.fi-topbar {
-    border-bottom: 2px solid var(--brutal-border) !important;
-    background: var(--lab-bg-elevated) !important;
-}
-
-/* Dropdown */
-.fi-dropdown-panel {
-    border: 2px solid var(--brutal-border) !important;
-    box-shadow: 6px 6px 0 var(--brutal-shadow) !important;
-}
-.fi-dropdown-list-item {
+.fi-tabs { border-bottom: 2px solid #0a0b12 !important; }
+.dark .fi-tabs { border-bottom-color: #f0f0f0 !important; }
+.fi-tabs-item {
     border-radius: 0 !important;
-    font-family: var(--font-mono) !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
-}
-.fi-dropdown-list-item:hover {
-    background: var(--brutal-accent) !important;
-    color: #fff !important;
-}
-.fi-dropdown-list-item:hover svg { color: #fff !important; }
-
-/* Table */
-.fi-ta-header-cell {
-    font-family: var(--font-mono) !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    text-transform: uppercase;
     font-size: 11px !important;
     font-weight: 700 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.06em !important;
 }
-.fi-ta-row:hover {
-    background: rgba(255, 92, 31, 0.05) !important;
-}
+.fi-tabs-item.fi-active { background: #ff5c1f !important; color: #ffffff !important; }
 
-/* Inputs */
-.fi-input-wrp {
-    border-width: 2px !important;
-    border-color: var(--lab-border) !important;
+.fi-wi-stats-overview-stat-value {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.03em !important;
 }
-.fi-input-wrp:focus-within {
-    border-color: var(--brutal-accent) !important;
-    box-shadow: 0 0 0 3px rgba(255, 92, 31, 0.15) !important;
-}
-
-/* Badges */
-.fi-badge {
-    font-family: var(--font-mono) !important;
+.fi-wi-stats-overview-stat-label {
+    font-family: 'JetBrains Mono', monospace !important;
+    text-transform: uppercase;
     font-size: 10px !important;
+    letter-spacing: 0.1em;
     font-weight: 700 !important;
-    letter-spacing: 0.05em !important;
 }

@@ -42,7 +42,7 @@ class GithubService
                 $resp = $http->get($url, [
                     'per_page' => $limit,
                     'sort'     => 'updated',
-                    'type'     => 'public',
+                    'type'     => 'all',
                 ]);
 
                 if (!$resp->ok()) {
