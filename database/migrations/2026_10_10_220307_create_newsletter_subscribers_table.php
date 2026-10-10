@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        if (Schema::hasTable('newsletter_subscribers')) {
+            return;
+        }
+
+        Schema::create('newsletter_subscribers', function (Blueprint $table) {
+            $table->id();
+            $table->string('email')->unique();
+            $table->string('name')->nullable();
+            $table->enum('status', ['pending', 'confirmed', 'unsubscribed'])->default('pending')->index();
+            $table->string('confirmation_token', 64)->nullable()->unique();
+            $table->timestamp('confirmed_at')->nullable();
+            $table->timestamp('unsubscribed_at')->nullable();
+            $table->string('source', 32)->default('footer');
+            $table->string('locale', 10)->default('en');
+            $table->string('ip_address', 45)->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('newsletter_subscribers');
+    }
+};
