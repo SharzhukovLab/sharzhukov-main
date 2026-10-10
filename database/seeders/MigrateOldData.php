@@ -311,16 +311,16 @@ $pivots = oldAll($oldPdo, 'wiki_page_tag');
 echo "  old: " . count($pivots) . "\n";
 $nP = 0;
 foreach ($pivots as $pv) {
-    $pid = $pageIdMap[$pv['wiki_page_id']] ?? null;
-    $tid = $tagIdMap[$pv['wiki_tag_id']] ?? null;
+    $pid = $pageIdMap[$pv['page_id']] ?? null;
+    $tid = $tagIdMap[$pv['tag_id']] ?? null;
     if (!$pid || !$tid || $pid < 0 || $tid < 0) continue;
 
-    $st = $newPdo->prepare("SELECT 1 FROM wiki_page_tag WHERE wiki_page_id = ? AND wiki_tag_id = ? LIMIT 1");
+    $st = $newPdo->prepare("SELECT 1 FROM wiki_page_tag WHERE page_id = ? AND tag_id = ? LIMIT 1");
     $st->execute([$pid, $tid]);
     if ($st->fetchColumn()) continue;
 
     if (!$DRY) {
-        $st = $newPdo->prepare("INSERT INTO wiki_page_tag (wiki_page_id, wiki_tag_id) VALUES (?,?)");
+        $st = $newPdo->prepare("INSERT INTO wiki_page_tag (page_id, tag_id) VALUES (?,?)");
         $st->execute([$pid, $tid]);
     }
     $nP++;
