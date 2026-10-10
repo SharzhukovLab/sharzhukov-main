@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ContactMessage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
@@ -37,24 +38,34 @@ class ContactController extends Controller
 
         $msg = ContactMessage::create($data);
 
-        // Notify admin
+        // Notify admin (обёрнуто в try/catch — даже если почта упадёт, юзер увидит success)
         try {
+            $from = config('mail.from.address', 'admin@sharzhukov.com');
+            $fromName = config('mail.from.name', "Sharzhukov's Laboratory");
+
             Mail::raw(
                 "New contact message #{$msg->id}\n\n"
-                . "Category: {$msg->category}\n"
-                . "Role: " . ($msg->role_interest ?: '—') . "\n"
-                . "Name: {$msg->name}\n"
-                . "Email: {$msg->email}\n"
-                . "Subject: {$msg->subject}\n\n"
+                . "Category:  {$msg->category}\n"
+                . "Role:      " . ($msg->role_interest ?: '—') . "\n"
+                . "Name:      {$msg->name}\n"
+                . "Email:     {$msg->email}\n"
+                . "Subject:   {$msg->subject}\n"
+                . "IP:        {$msg->ip_address}\n"
+                . "User ID:   " . ($msg->user_id ?: '—') . "\n\n"
+                . "---\n\n"
                 . "{$msg->message}\n",
-                function ($m) use ($msg) {
-                    $m->to('admin@sharzhukov.com')
+                function ($m) use ($msg, $from, $fromName) {
+                    $m->from($from, $fromName)
+                      ->to('admin@sharzhukov.com')
                       ->replyTo($msg->email, $msg->name)
-                      ->subject('[Contact] ' . $msg->subject);
+                      ->subject('[Contact #' . $msg->id . '] ' . $msg->subject);
                 }
             );
         } catch (\Throwable $e) {
-            logger()->warning('[contact] mail failed', ['error' => $e->getMessage()]);
+            Log::warning('[contact] mail failed', [
+                'msg_id' => $msg->id,
+                'error'  => $e->getMessage(),
+            ]);
         }
 
         return redirect()->route('contact')
