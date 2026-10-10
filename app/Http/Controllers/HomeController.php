@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use App\Models\Setting;
+use App\Models\ShortLink;
+use App\Models\User;
 use App\Models\UserProject;
+use App\Models\WikiPage;
+use App\Services\GithubService;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -41,6 +46,29 @@ class HomeController extends Controller
             ]),
         ];
 
-        return view('home', compact('projects', 'news', 'heroBadges', 'terminal'));
+        // ── Dynamic stats (кэш 10 минут) ──
+        $stats = Cache::remember('home.stats', 600, function () {
+            $gh = app(GithubService::class);
+            $repos = $gh->repos(100);
+
+            $totalStars = collect($repos)->sum('stars');
+            $totalForks = collect($repos)->sum('forks');
+
+            return [
+                'projects'      => UserProject::where('status', 'approved')->count(),
+                'contributors'  => User::whereNotNull('email_verified_at')
+                                        ->where('is_banned', false)
+                                        ->whereNull('deletion_requested_at')
+                                        ->count(),
+                'stars'         => $totalStars,
+                'forks'         => $totalForks,
+                'repos'         => count($repos),
+                'wiki_pages'    => WikiPage::count(),
+                'short_links'   => ShortLink::count(),
+                'news'          => News::where('is_published', true)->count(),
+            ];
+        });
+
+        return view('home', compact('projects', 'news', 'heroBadges', 'terminal', 'stats'));
     }
 }
