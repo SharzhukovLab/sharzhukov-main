@@ -16,6 +16,8 @@ class WikiFeedbackResource extends Resource
 {
     protected static ?string $model = WikiFeedback::class;
 
+    protected static ?string $slug = 'wiki-feedbacks';
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleLeftRight;
     protected static ?string $navigationLabel = 'Feedback';
     protected static ?string $modelLabel = 'Feedback';
