@@ -8,7 +8,8 @@ class Page extends Model
 {
     protected $fillable = [
         'slug', 'title', 'hero_eyebrow', 'hero_title',
-        'hero_subtitle', 'meta_description', 'is_published',
+        'hero_subtitle', 'content', 'blocks',
+        'meta_description', 'is_published',
     ];
 
     protected $casts = ['is_published' => 'boolean'];
