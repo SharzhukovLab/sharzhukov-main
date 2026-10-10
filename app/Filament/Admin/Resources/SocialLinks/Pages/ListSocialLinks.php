@@ -3,9 +3,15 @@
 namespace App\Filament\Admin\Resources\SocialLinks\Pages;
 
 use App\Filament\Admin\Resources\SocialLinks\SocialLinkResource;
-use Filament\Resources\Pages\ListRecord;
+use Filament\Actions\CreateAction;
+use Filament\Resources\Pages\ListRecords;
 
-class ListSocialLinks extends ListRecord
+class ListSocialLinks extends ListRecords
 {
     protected static string $resource = SocialLinkResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [CreateAction::make()];
+    }
 }
