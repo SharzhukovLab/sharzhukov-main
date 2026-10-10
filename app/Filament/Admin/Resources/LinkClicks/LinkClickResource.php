@@ -30,20 +30,79 @@ class LinkClickResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->label('#')->sortable()->width('70px'),
-                TextColumn::make('short_link_id')->label('Link ID')->badge()->sortable(),
-                TextColumn::make('ip_address')->limit(15)->toggleable()->fontFamily('mono'),
-                TextColumn::make('referer')->limit(40)->toggleable()->wrap()
+                TextColumn::make('id')
+                    ->label('#')
+                    ->sortable()
+                    ->width('70px'),
+
+                TextColumn::make('shortLink.slug')
+                    ->label('Link')
+                    ->badge()
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('ip')
+                    ->label('IP')
+                    ->limit(15)
+                    ->fontFamily('mono')
+                    ->toggleable(),
+
+                TextColumn::make('country')
+                    ->badge()
+                    ->color('gray')
+                    ->sortable()
                     ->placeholder('—'),
-                TextColumn::make('user_agent')->limit(50)->toggleable()->wrap()
+
+                TextColumn::make('device')
+                    ->badge()
+                    ->color('info')
                     ->placeholder('—'),
-                TextColumn::make('created_at')->since()->sortable(),
+
+                TextColumn::make('browser')
+                    ->badge()
+                    ->placeholder('—'),
+
+                TextColumn::make('os')
+                    ->badge()
+                    ->placeholder('—'),
+
+                TextColumn::make('referrer')
+                    ->limit(40)
+                    ->toggleable()
+                    ->wrap()
+                    ->placeholder('—'),
+
+                TextColumn::make('user_agent')
+                    ->limit(50)
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->wrap()
+                    ->placeholder('—'),
+
+                TextColumn::make('clicked_at')
+                    ->label('Clicked')
+                    ->since()
+                    ->sortable(),
             ])
-            ->defaultSort('created_at', 'desc')
+            ->defaultSort('clicked_at', 'desc')
             ->filters([
                 SelectFilter::make('short_link_id')
                     ->label('Link')
-                    ->options(fn () => ShortLink::query()->limit(100)->pluck('slug', 'id')->toArray()),
+                    ->options(fn () => ShortLink::query()
+                        ->limit(100)
+                        ->pluck('slug', 'id')
+                        ->toArray()),
+                SelectFilter::make('country')
+                    ->options(fn () => LinkClick::query()
+                        ->whereNotNull('country')
+                        ->distinct()
+                        ->pluck('country', 'country')
+                        ->toArray()),
+                SelectFilter::make('device')
+                    ->options(fn () => LinkClick::query()
+                        ->whereNotNull('device')
+                        ->distinct()
+                        ->pluck('device', 'device')
+                        ->toArray()),
             ]);
     }
 
