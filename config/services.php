@@ -34,9 +34,12 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-
     'github' => [
         'org'       => env('GITHUB_ORG', 'SharzhukovLab'),
+        'accounts'  => array_values(array_filter(array_map(
+            'trim',
+            explode(',', (string) env('GITHUB_ACCOUNTS', 'Sharzhukov,SharzhukovLab'))
+        ))),
         'token'     => env('GITHUB_TOKEN'),
         'cache_ttl' => (int) env('GITHUB_CACHE_TTL', 3600),
     ],

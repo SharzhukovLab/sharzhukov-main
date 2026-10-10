@@ -99,6 +99,10 @@
                                     <span style="font-family:var(--font-mono);font-size:11px;color:var(--lab-fg-muted);">↗</span>
                                 </div>
 
+                                <div style="font-family:var(--font-mono);font-size:10px;color:var(--lab-fg-muted);letter-spacing:0.05em;margin-top:-8px;">
+                                    {{ '@' . ($repo['owner'] ?? 'github') }}
+                                </div>
+
                                 @if($repo['description'])
                                     <p style="margin:0;color:var(--lab-fg-muted);font-size:14px;line-height:1.55;flex:1;">
                                         {{ \Illuminate\Support\Str::limit($repo['description'], 140) }}

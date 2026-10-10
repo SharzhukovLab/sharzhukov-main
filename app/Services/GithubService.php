@@ -7,97 +7,183 @@ use Illuminate\Support\Facades\Http;
 
 class GithubService
 {
-    protected string $org;
+    protected array $accounts;
     protected ?string $token;
     protected int $ttl;
 
     public function __construct()
     {
-        $this->org   = config('services.github.org', 'SharzhukovLab');
-        $this->token = config('services.github.token');   // null → unauthenticated
-        $this->ttl   = (int) config('services.github.cache_ttl', 3600);
+        $this->accounts = config('services.github.accounts', ['Sharzhukov', 'SharzhukovLab']);
+        $this->token    = config('services.github.token');
+        $this->ttl      = (int) config('services.github.cache_ttl', 3600);
     }
 
     /**
-     * Список репозиториев организации.
-     * Кешируется на $ttl секунд.
+     * Все публичные репозитории со всех аккаунтов (личный + org).
+     * Кэшируется на $ttl секунд.
      */
-    public function repos(int $limit = 30): array
+    public function repos(int $limit = 100): array
     {
-        $cacheKey = "github.repos.{$this->org}.{$limit}";
+        $key = 'github.repos.v3.' . md5(implode(',', $this->accounts)) . ".{$limit}";
 
-        return Cache::remember($cacheKey, $this->ttl, function () use ($limit) {
-            $url = "https://api.github.com/orgs/{$this->org}/repos";
+        return Cache::remember($key, $this->ttl, function () use ($limit) {
+            $all = [];
 
-            $http = Http::withHeaders([
-                'Accept'     => 'application/vnd.github+json',
-                'User-Agent' => 'SharzhukovLab/1.0',
-            ])->timeout(8);
-
-            if ($this->token) {
-                $http = $http->withToken($this->token);
+            foreach ($this->accounts as $account) {
+                $fetched = $this->fetchAccountRepos($account, $limit);
+                $all = array_merge($all, $fetched);
             }
 
-            try {
-                $resp = $http->get($url, [
-                    'per_page' => $limit,
-                    'sort'     => 'updated',
-                    'type'     => 'all',
-                ]);
+            // Сортируем: свежие сверху
+            usort($all, function ($a, $b) {
+                return strcmp($b['updated_at'] ?? '', $a['updated_at'] ?? '');
+            });
 
-                if (!$resp->ok()) {
-                    return [];
-                }
-
-                $repos = $resp->json();
-
-                return collect($repos)->map(function ($r) {
-                    return [
-                        'name'        => $r['name']            ?? '',
-                        'full_name'   => $r['full_name']       ?? '',
-                        'description' => $r['description']     ?? '',
-                        'url'         => $r['html_url']        ?? '',
-                        'homepage'    => $r['homepage']        ?? '',
-                        'language'    => $r['language']        ?? '',
-                        'stars'       => $r['stargazers_count']?? 0,
-                        'forks'       => $r['forks_count']     ?? 0,
-                        'open_issues' => $r['open_issues_count'] ?? 0,
-                        'updated_at'  => $r['updated_at']      ?? '',
-                        'topics'      => $r['topics']          ?? [],
-                        'is_fork'     => (bool)($r['fork']     ?? false),
-                    ];
-                })
-                ->reject(fn ($r) => $r['is_fork'])
-                ->values()
-                ->all();
-            } catch (\Throwable $e) {
-                logger()->warning('[github] API failed', ['error' => $e->getMessage()]);
-                return [];
+            // Уникализируем по full_name
+            $seen = [];
+            $out  = [];
+            foreach ($all as $repo) {
+                if (isset($seen[$repo['full_name']])) continue;
+                $seen[$repo['full_name']] = true;
+                $out[] = $repo;
             }
+
+            return array_slice($out, 0, $limit);
         });
     }
 
+    /**
+     * Забрать публичные репы одного аккаунта (User или Organization).
+     */
+    protected function fetchAccountRepos(string $account, int $limit): array
+    {
+        $type = $this->detectAccountType($account);   // 'User' или 'Organization'
+
+        $url = $type === 'Organization'
+            ? "https://api.github.com/orgs/{$account}/repos"
+            : "https://api.github.com/users/{$account}/repos";
+
+        try {
+            $params = [
+                'per_page' => min(100, max(30, $limit)),
+                'sort'     => 'updated',
+                'direction'=> 'desc',
+            ];
+
+            // Для org — просим только публичные
+            if ($type === 'Organization') {
+                $params['type'] = 'public';
+            } else {
+                // для User — просим owned (потом отфильтруем приватные)
+                $params['type'] = 'owner';
+            }
+
+            $resp = $this->client()->get($url, $params);
+
+            if (! $resp->ok()) {
+                logger()->warning('[github] repos failed', [
+                    'account' => $account,
+                    'type'    => $type,
+                    'status'  => $resp->status(),
+                    'body'    => substr($resp->body(), 0, 200),
+                ]);
+                return [];
+            }
+
+            $raw = $resp->json();
+            if (! is_array($raw)) return [];
+
+            return collect($raw)
+                ->filter(fn ($r) => empty($r['private']) && empty($r['fork']))   // ← только публичные, без форков
+                ->map(function ($r) use ($account, $type) {
+                    return [
+                        'name'        => $r['name']              ?? '',
+                        'full_name'   => $r['full_name']         ?? '',
+                        'owner'       => $account,
+                        'owner_type'  => $type,
+                        'description' => $r['description']       ?? '',
+                        'url'         => $r['html_url']          ?? '',
+                        'homepage'    => $r['homepage']          ?? '',
+                        'language'    => $r['language']          ?? '',
+                        'stars'       => (int) ($r['stargazers_count'] ?? 0),
+                        'forks'       => (int) ($r['forks_count'] ?? 0),
+                        'open_issues' => (int) ($r['open_issues_count'] ?? 0),
+                        'updated_at'  => $r['updated_at']        ?? '',
+                        'topics'      => $r['topics']            ?? [],
+                        'license'     => $r['license']['spdx_id'] ?? null,
+                        'is_fork'     => false,
+                    ];
+                })
+                ->values()
+                ->all();
+        } catch (\Throwable $e) {
+            logger()->warning('[github] fetch failed', [
+                'account' => $account,
+                'error'   => $e->getMessage(),
+            ]);
+            return [];
+        }
+    }
+
+    /**
+     * User или Organization. Кэш 1 день.
+     */
+    protected function detectAccountType(string $login): string
+    {
+        return Cache::remember("github.type.v2.{$login}", 86400, function () use ($login) {
+            try {
+                $resp = $this->client()->get("https://api.github.com/users/{$login}");
+                if ($resp->ok()) {
+                    return $resp->json()['type'] ?? 'User';
+                }
+            } catch (\Throwable $e) {}
+            return 'User';
+        });
+    }
+
+    /**
+     * Общее количество публичных репозиториев.
+     */
     public function repoCount(): int
     {
-        $cacheKey = "github.repos.count.{$this->org}";
-        return Cache::remember($cacheKey, $this->ttl, function () {
-            $url = "https://api.github.com/orgs/{$this->org}";
+        $repos = $this->repos(100);
+        return count($repos);
+    }
 
-            $http = Http::withHeaders([
-                'Accept'     => 'application/vnd.github+json',
-                'User-Agent' => 'SharzhukovLab/1.0',
-            ])->timeout(8);
+    /**
+     * Сумма звёзд по всем публичным репам.
+     */
+    public function starsTotal(): int
+    {
+        return (int) collect($this->repos(100))->sum('stars');
+    }
 
-            if ($this->token) {
-                $http = $http->withToken($this->token);
-            }
+    protected function client()
+    {
+        $http = Http::withHeaders([
+            'Accept'     => 'application/vnd.github+json',
+            'User-Agent' => 'SharzhukovLab/1.0',
+        ])->timeout(10);
 
-            try {
-                $resp = $http->get($url);
-                return $resp->ok() ? (int) ($resp->json()['public_repos'] ?? 0) : 0;
-            } catch (\Throwable $e) {
-                return 0;
-            }
-        });
+        if ($this->token) {
+            $http = $http->withToken($this->token);
+        }
+
+        return $http;
+    }
+
+    /**
+     * Очистить весь кэш github.*
+     */
+    public function clearCache(): void
+    {
+        foreach ($this->accounts as $acc) {
+            Cache::forget("github.type.v2.{$acc}");
+        }
+        foreach ([30, 50, 100] as $n) {
+            Cache::forget('github.repos.v3.' . md5(implode(',', $this->accounts)) . ".{$n}");
+        }
+        Cache::forget('products.github.v1');
+        Cache::forget('home.stats.v2');
     }
 }

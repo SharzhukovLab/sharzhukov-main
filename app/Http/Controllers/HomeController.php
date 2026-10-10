@@ -47,7 +47,7 @@ class HomeController extends Controller
         ];
 
         // ── Dynamic stats (кэш 10 минут) ──
-        $stats = Cache::remember('home.stats', 600, function () {
+        $stats = Cache::remember('home.stats.v2', 600, function () {
             $gh = app(GithubService::class);
             $repos = $gh->repos(100);
 
