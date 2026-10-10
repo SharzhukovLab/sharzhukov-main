@@ -186,3 +186,264 @@
     letter-spacing: 0.1em;
     font-weight: 700 !important;
 }
+
+/* ═══════════════ HEADINGS — brutal prefix // ═══════════════ */
+.fi-header-heading::before {
+    content: '// ';
+    color: #ff5c1f;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    margin-right: 4px;
+}
+
+.fi-header-heading {
+    font-family: 'Inter', system-ui, sans-serif !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.03em !important;
+    text-transform: uppercase;
+    font-size: 28px !important;
+}
+
+/* Breadcrumbs */
+.fi-breadcrumbs {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 11px !important;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+.fi-breadcrumbs-item-label {
+    color: #ff5c1f !important;
+    font-weight: 700;
+}
+
+/* ═══════════════ FORM LABELS — mono + uppercase ═══════════════ */
+.fi-fo-field-wrp-label label,
+.fi-fo-field-wrp-label > span {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 11px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700 !important;
+    color: #4a5568;
+}
+.dark .fi-fo-field-wrp-label label,
+.dark .fi-fo-field-wrp-label > span {
+    color: #a0aec0;
+}
+
+/* ═══════════════ SELECT INPUTS (native) ═══════════════ */
+.fi-select-input,
+select.fi-select-input {
+    border-radius: 0 !important;
+    border: 2px solid #0a0b12 !important;
+    background: #ffffff !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 12px !important;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 6px 12px !important;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.fi-select-input:hover {
+    box-shadow: 3px 3px 0 #ff5c1f !important;
+}
+.fi-select-input:focus {
+    outline: none !important;
+    box-shadow: 3px 3px 0 #ff5c1f !important;
+    border-color: #ff5c1f !important;
+}
+.dark .fi-select-input,
+.dark select.fi-select-input {
+    background: #12131c !important;
+    border-color: #f0f0f0 !important;
+    color: #f0f0f0 !important;
+}
+
+/* ═══════════════ TABLE — tighter brutal ═══════════════ */
+.fi-ta table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+.fi-ta-header-cell {
+    background: #f7f7f8 !important;
+    padding: 14px 16px !important;
+    color: #0a0b12 !important;
+}
+.dark .fi-ta-header-cell {
+    background: #16172a !important;
+    color: #f0f0f0 !important;
+}
+
+.fi-ta-cell {
+    padding: 14px 16px !important;
+    font-size: 13px;
+}
+
+.fi-ta-text {
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ═══════════════ FILTERS / SEARCH ═══════════════ */
+.fi-ta-search-field input,
+.fi-input[type="search"] {
+    border: 2px solid #0a0b12 !important;
+    border-radius: 0 !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 12px !important;
+}
+.dark .fi-ta-search-field input,
+.dark .fi-input[type="search"] {
+    border-color: #f0f0f0 !important;
+    background: #12131c !important;
+    color: #f0f0f0 !important;
+}
+
+/* ═══════════════ PAGINATION — brutal ═══════════════ */
+.fi-pagination {
+    font-family: 'JetBrains Mono', monospace;
+}
+.fi-pagination-item,
+.fi-pagination-item button,
+.fi-pagination-item a {
+    border: 2px solid #0a0b12 !important;
+    border-radius: 0 !important;
+    font-weight: 700 !important;
+    transition: all 0.15s ease;
+}
+.fi-pagination-item button:hover,
+.fi-pagination-item a:hover {
+    background: #ff5c1f !important;
+    color: #ffffff !important;
+    border-color: #ff5c1f !important;
+}
+.dark .fi-pagination-item,
+.dark .fi-pagination-item button,
+.dark .fi-pagination-item a {
+    border-color: #f0f0f0 !important;
+}
+
+/* ═══════════════ EMPTY STATE ═══════════════ */
+.fi-ta-empty-state {
+    padding: 48px 24px !important;
+    font-family: 'JetBrains Mono', monospace;
+}
+.fi-ta-empty-state-heading {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 900 !important;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+}
+
+/* ═══════════════ BADGES — solid border ═══════════════ */
+.fi-badge {
+    background: transparent !important;
+    border-width: 2px !important;
+    font-weight: 700 !important;
+}
+
+/* ═══════════════ TOPBAR — interactive icons ═══════════════ */
+.fi-topbar .fi-icon-btn {
+    border: 2px solid #0a0b12 !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    box-shadow: 2px 2px 0 #0a0b12 !important;
+    transition: all 0.15s ease;
+}
+.fi-topbar .fi-icon-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 #ff5c1f !important;
+    background: #ff5c1f !important;
+    color: #ffffff !important;
+}
+.dark .fi-topbar .fi-icon-btn {
+    border-color: #f0f0f0 !important;
+    background: #12131c !important;
+    box-shadow: 2px 2px 0 #ff5c1f !important;
+}
+
+/* ═══════════════ TOGGLE / SWITCH ═══════════════ */
+.fi-toggle button,
+button[role="switch"] {
+    border-radius: 0 !important;
+    border: 2px solid #0a0b12 !important;
+}
+.dark .fi-toggle button,
+.dark button[role="switch"] {
+    border-color: #f0f0f0 !important;
+}
+
+/* ═══════════════ MODAL HEADING — brutal ═══════════════ */
+.fi-modal-heading {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 900 !important;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    font-size: 20px !important;
+}
+
+/* ═══════════════ RICH EDITOR (Page / News / Wiki) ═══════════════ */
+.ProseMirror,
+.tiptap {
+    font-family: 'Inter', system-ui, sans-serif !important;
+    line-height: 1.7;
+    min-height: 200px;
+    padding: 16px !important;
+}
+.ProseMirror:focus,
+.tiptap:focus {
+    outline: none !important;
+}
+.fi-fo-rich-editor-toolbar {
+    border-bottom: 2px solid #0a0b12 !important;
+    background: #f7f7f8 !important;
+    border-radius: 0 !important;
+}
+.dark .fi-fo-rich-editor-toolbar {
+    background: #16172a !important;
+    border-bottom-color: #f0f0f0 !important;
+}
+.fi-fo-rich-editor-toolbar button {
+    border-radius: 0 !important;
+    font-weight: 700;
+}
+.fi-fo-rich-editor-toolbar button:hover {
+    background: #ff5c1f !important;
+    color: #ffffff !important;
+}
+
+/* ═══════════════ DASHBOARD — stats cards ═══════════════ */
+.fi-wi-stats-overview-stat {
+    padding: 20px 24px !important;
+    transition: all 0.15s ease;
+}
+.fi-wi-stats-overview-stat:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #ff5c1f !important;
+}
+
+/* ═══════════════ SIDEBAR — collapse button ═══════════════ */
+.fi-sidebar-toggle,
+.fi-sidebar-header .fi-icon-btn {
+    color: #ff5c1f !important;
+    border: 2px solid #ff5c1f !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+}
+.fi-sidebar-toggle:hover,
+.fi-sidebar-header .fi-icon-btn:hover {
+    background: #ff5c1f !important;
+    color: #ffffff !important;
+}
+
+/* ═══════════════ LINKS — arrows ═══════════════ */
+.fi-link, a.fi-link {
+    color: #ff5c1f !important;
+    font-weight: 700;
+    text-decoration: none;
+}
+.fi-link:hover, a.fi-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}

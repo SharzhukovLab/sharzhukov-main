@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Resources\LinkClicks;
 
 use App\Filament\Admin\Resources\LinkClicks\Pages\ListLinkClicks;
 use App\Models\LinkClick;
+use App\Models\ShortLink;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Support\Icons\Heroicon;
@@ -17,6 +18,7 @@ class LinkClickResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCursorArrowRays;
     protected static ?string $navigationLabel = 'Clicks';
+    protected static ?string $modelLabel = 'Click';
     protected static ?string $pluralModelLabel = 'Clicks';
     protected static string|\UnitEnum|null $navigationGroup = 'Go';
     protected static ?int $navigationSort = 20;
@@ -28,19 +30,20 @@ class LinkClickResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->label('#')->sortable()->width('60px'),
-                TextColumn::make('short_link_id')->label('Link')->badge()->sortable(),
-                TextColumn::make('ip_address')->limit(15)->toggleable(),
-                TextColumn::make('referer')->limit(40)->toggleable(),
-                TextColumn::make('user_agent')->limit(40)->toggleable()->wrap(),
+                TextColumn::make('id')->label('#')->sortable()->width('70px'),
+                TextColumn::make('short_link_id')->label('Link ID')->badge()->sortable(),
+                TextColumn::make('ip_address')->limit(15)->toggleable()->fontFamily('mono'),
+                TextColumn::make('referer')->limit(40)->toggleable()->wrap()
+                    ->placeholder('—'),
+                TextColumn::make('user_agent')->limit(50)->toggleable()->wrap()
+                    ->placeholder('—'),
                 TextColumn::make('created_at')->since()->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
                 SelectFilter::make('short_link_id')
                     ->label('Link')
-                    ->options(fn () => \App\Models\ShortLink::pluck('slug', 'id')->toArray())
-                    ->searchable(),
+                    ->options(fn () => ShortLink::query()->limit(100)->pluck('slug', 'id')->toArray()),
             ]);
     }
 
