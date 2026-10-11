@@ -46,3 +46,6 @@ Route::post('/api/cookie-consent', [CookieConsentController::class, 'store'])->n
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 Route::get('/newsletter/confirm/{token}', [NewsletterController::class, 'confirm'])->name('newsletter.confirm');
 Route::get('/newsletter/unsubscribe/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
+
+// ── Health check (uptime monitoring) ──
+Route::get('/health', \App\Http\Controllers\HealthController::class)->name('health');
