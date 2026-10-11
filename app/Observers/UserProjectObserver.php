@@ -85,7 +85,7 @@ class UserProjectObserver
         ]);
     }
 
-        protected function notifySubscribers(UserProject $project): void
+            protected function notifySubscribers(UserProject $project): void
     {
         $subs = NewsletterSubscriber::where('status', 'confirmed')->get();
         $queued = 0;
