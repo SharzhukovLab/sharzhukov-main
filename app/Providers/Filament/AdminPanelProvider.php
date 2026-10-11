@@ -33,7 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('img/branding/core-white.png'))
             ->brandLogoHeight('1.75rem')
             ->favicon(asset('favicon.ico'))
-            ->defaultThemeMode(ThemeMode::System)
+            ->defaultThemeMode(ThemeMode::Light)
             ->sidebarCollapsibleOnDesktop()
             ->maxContentWidth(Width::Full)
             ->userMenuItems([
