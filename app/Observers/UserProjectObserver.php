@@ -85,25 +85,34 @@ class UserProjectObserver
         ]);
     }
 
-    protected function notifySubscribers(UserProject $project): void
+        protected function notifySubscribers(UserProject $project): void
     {
         $subs = NewsletterSubscriber::where('status', 'confirmed')->get();
-        $count = 0;
+        $queued = 0;
+
+        $url      = 'https://sharzhukov.com/projects/' . $project->slug;
+        $subject  = 'New project: ' . $project->title;
+        $body     = "New project: {$project->title}\n\n"
+                  . ($project->tagline ?: '') . "\n\n"
+                  . "Read more: {$url}\n";
 
         foreach ($subs as $sub) {
             try {
-                Mail::raw(
-                    "New project: {$project->title}\n\n{$project->tagline}\n\nRead more: https://sharzhukov.com/projects/{$project->slug}\n",
-                    function ($m) use ($sub, $project) {
-                        $m->to($sub->email)->subject('New project: ' . $project->title);
-                    }
-                );
-                $count++;
+                \App\Jobs\SendNewsletterEmail::dispatch($sub->email, $subject, $body)
+                    ->onQueue('mail');
+                $queued++;
             } catch (\Throwable $e) {
-                Log::warning('[observer] mail to subscriber failed', ['email'=>$sub->email,'err'=>$e->getMessage()]);
+                Log::warning('[observer] newsletter queue failed', [
+                    'email' => $sub->email,
+                    'err'   => $e->getMessage(),
+                ]);
             }
         }
-        Log::info('[observer] newsletter sent', ['project'=>$project->id,'count'=>$count]);
+
+        Log::info('[observer] newsletter queued', [
+            'project' => $project->id,
+            'count'   => $queued,
+        ]);
     }
 
     protected function sendPersonalMessage(UserProject $project): void
