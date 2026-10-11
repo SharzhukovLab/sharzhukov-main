@@ -20,9 +20,11 @@ class ProjectPublishedNotification extends Notification
     public function toDatabase(object $notifiable): array
     {
         return [
-            'title'      => 'Ваш проект опубликован!',
-            'message'    => "Проект «{$this->project->title}» теперь доступен в Wiki и новостях.",
-            'url'        => "/projects/{$this->project->slug}",
+            'type'       => 'project_published',
+            'title'      => 'Your project is live!',
+            'message'    => "Project «{$this->project->title}» is now published in the Wiki and News.",
+            // ВАЖНО: абсолютный URL — projects.show существует ТОЛЬКО на main
+            'url'        => "https://sharzhukov.com/projects/{$this->project->slug}",
             'project_id' => $this->project->id,
         ];
     }
