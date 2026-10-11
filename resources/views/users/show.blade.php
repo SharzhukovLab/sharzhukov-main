@@ -136,6 +136,44 @@
         </div>
     </section>
 
+    
+    {{-- HARDWARE --}}
+    @php $specsBlocks = $user->team_specs_list; @endphp
+    @if(!empty($specsBlocks))
+        <section class="brutal-grid-bg" style="padding:40px 24px 56px;border-bottom:3px solid var(--brutal-border);">
+            <div style="max-width:900px;margin:0 auto;">
+                <span class="brutal-marker">// HARDWARE</span>
+                <h2 style="font-family:var(--font-sans);font-weight:900;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-0.03em;margin:14px 0 24px;line-height:1.1;">
+                    Gear
+                </h2>
+
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+                    @foreach($specsBlocks as $block)
+                        <div class="brutal-card" style="padding:0;overflow:hidden;">
+                            <div style="padding:14px 18px;background:var(--brutal-border);color:var(--lab-bg);">
+                                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;opacity:.7;text-transform:uppercase;margin-bottom:4px;">// DEVICE</div>
+                                <div style="font-family:var(--font-sans);font-weight:900;font-size:16px;letter-spacing:-0.01em;">{{ $block['name'] }}</div>
+                            </div>
+                            <div style="padding:6px 0;">
+                                @forelse($block['items'] as $item)
+                                    <div style="display:flex;justify-content:space-between;gap:12px;padding:10px 18px;border-bottom:2px solid var(--brutal-border);">
+                                        <span style="font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--brutal-accent);text-transform:uppercase;">
+                                            {{ $item['label'] }}
+                                        </span>
+                                        <span style="font-family:var(--font-sans);font-weight:700;font-size:14px;color:var(--lab-fg);text-align:right;">
+                                            {{ $item['value'] }}
+                                        </span>
+                                    </div>
+                                @empty
+                                    <div style="padding:18px;color:var(--lab-fg-muted);font-size:13px;font-family:var(--font-mono);">No components</div>
+                                @endforelse
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
     {{-- PROJECTS --}}
     <article style="max-width:900px;margin:0 auto;padding:56px 24px 72px;">
         <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:28px;">
