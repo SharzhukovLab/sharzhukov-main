@@ -93,7 +93,7 @@ class UserProjectObserver
         foreach ($subs as $sub) {
             try {
                 Mail::raw(
-                    "New project: {$project->title}\n\n{$project->tagline}\n\nRead more: https://main.sharzhukov.com/projects/{$project->slug}\n",
+                    "New project: {$project->title}\n\n{$project->tagline}\n\nRead more: https://sharzhukov.com/projects/{$project->slug}\n",
                     function ($m) use ($sub, $project) {
                         $m->to($sub->email)->subject('New project: ' . $project->title);
                     }

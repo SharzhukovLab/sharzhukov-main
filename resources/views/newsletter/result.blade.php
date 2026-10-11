@@ -14,7 +14,7 @@
             @endif
 
             <div style="margin-top:32px;">
-                <a href="https://main.sharzhukov.com" class="lab-btn lab-btn--primary">
+                <a href="https://sharzhukov.com" class="lab-btn lab-btn--primary">
                     BACK TO HOME
                 </a>
             </div>

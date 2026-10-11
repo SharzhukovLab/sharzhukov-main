@@ -30,9 +30,9 @@ class SeedLegalPages extends Command
             . '<li>Request deletion ("right to be forgotten").</li>'
             . '<li>Export your data in a portable format.</li>'
             . '<li>Object to processing.</li></ul>'
-            . '<p>You can exercise these rights from your <a href="https://account-main.sharzhukov.com/security">account settings</a>.</p>'
+            . '<p>You can exercise these rights from your <a href="https://account.sharzhukov.com/security">account settings</a>.</p>'
             . '<h2>6. Data Retention</h2><p>We retain your data while your account is active. Deleted accounts are permanently removed within 30 days.</p>'
-            . '<h2>7. Contact</h2><p>For privacy inquiries, contact us via <a href="https://main.sharzhukov.com/contact">our contact form</a>.</p>';
+            . '<h2>7. Contact</h2><p>For privacy inquiries, contact us via <a href="https://sharzhukov.com/contact">our contact form</a>.</p>';
 
         $cookies = '<h2>1. What Are Cookies</h2><p>Cookies are small text files stored on your device when you visit our websites. They help us provide a functional and secure experience.</p>'
             . '<h2>2. Categories We Use</h2>'

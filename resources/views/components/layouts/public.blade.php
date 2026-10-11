@@ -57,7 +57,7 @@
                 ['label' => 'Projects', 'url' => '/projects', 'external' => false],
                 ['label' => 'News',     'url' => '/news',     'external' => false],
                 ['label' => 'About',    'url' => '/about',    'external' => false],
-                ['label' => 'Wiki',     'url' => 'https://wiki-main.sharzhukov.com', 'external' => true],
+                ['label' => 'Wiki',     'url' => 'https://wiki.sharzhukov.com', 'external' => true],
             ];
         @endphp
         <div style="flex:1;display:flex;gap:4px;margin-left:16px;">
@@ -83,11 +83,11 @@
         </button>
 
         @auth
-            <a href="https://account-main.sharzhukov.com/dashboard" style="text-decoration:none;display:inline-flex;">
+            <a href="https://account.sharzhukov.com/dashboard" style="text-decoration:none;display:inline-flex;">
                 <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" style="width:36px;height:36px;border-radius:0;object-fit:cover;border:2px solid var(--brutal-border);filter:drop-shadow(3px 3px 0 var(--brutal-shadow));transition:filter .15s ease;">
             </a>
         @else
-            <x-lab::button variant="primary" size="sm" href="https://account-main.sharzhukov.com/login?return={{ urlencode(url('/')) }}">
+            <x-lab::button variant="primary" size="sm" href="https://account.sharzhukov.com/login?return={{ urlencode(url('/')) }}">
                 SIGN IN →
             </x-lab::button>
         @endauth

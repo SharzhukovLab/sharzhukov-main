@@ -14,7 +14,7 @@ class RedirectToAccountForAdmin
             $return = urlencode($request->fullUrl());
 
             return redirect()->away(
-                'https://account-main.sharzhukov.com/login?return=' . $return
+                'https://account.sharzhukov.com/login?return=' . $return
             );
         }
 

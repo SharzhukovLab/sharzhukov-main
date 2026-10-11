@@ -43,7 +43,7 @@ class WikiFeedbackResource extends Resource
                     ->limit(40)
                     ->placeholder('—')
                     ->url(fn ($record) => $record->page_id
-                        ? 'https://wiki-main.sharzhukov.com/p/' . ($record->page->slug ?? '')
+                        ? 'https://wiki.sharzhukov.com/p/' . ($record->page->slug ?? '')
                         : null)
                     ->openUrlInNewTab(),
 

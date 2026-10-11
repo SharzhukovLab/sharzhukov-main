@@ -397,7 +397,7 @@
                 Whether you contribute code, docs, or ideas — you're welcome here.
             </p>
             <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-                <x-lab::button variant="primary" size="lg" href="https://account-main.sharzhukov.com/register">
+                <x-lab::button variant="primary" size="lg" href="https://account.sharzhukov.com/register">
                     CREATE ACCOUNT <x-lucide-arrow-right style="width:16px;height:16px;" />
                 </x-lab::button>
                 <x-lab::button variant="secondary" size="lg" href="https://github.com/SharzhukovLab" target="_blank">

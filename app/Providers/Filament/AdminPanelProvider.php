@@ -39,12 +39,12 @@ class AdminPanelProvider extends PanelProvider
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Public site')
-                    ->url('https://main.sharzhukov.com')
+                    ->url('https://sharzhukov.com')
                     ->icon('heroicon-o-globe-alt')
                     ->openUrlInNewTab(),
                 MenuItem::make()
                     ->label('My account')
-                    ->url('https://account-main.sharzhukov.com/dashboard')
+                    ->url('https://account.sharzhukov.com/dashboard')
                     ->icon('heroicon-o-user-circle')
                     ->openUrlInNewTab(),
             ])
