@@ -15,11 +15,10 @@
     <link rel="manifest" href="/site.webmanifest">
     <meta name="description" content="Sharzhukov's Laboratory — an open-source collective building tools for developers.">
     @stack('meta')
-    <script>
+        <script>
         (function () {
             var t = localStorage.getItem('theme');
-            var dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (t === 'dark' || (!t && dark)) document.documentElement.classList.add('dark');
+            if (t === 'dark') document.documentElement.classList.add('dark');
         })();
     </script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])

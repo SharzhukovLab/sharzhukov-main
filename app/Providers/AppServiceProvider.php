@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\UserProject;
-use App\Observers\UserProjectObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,7 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        UserProject::observe(UserProjectObserver::class);
         //
     }
 }
