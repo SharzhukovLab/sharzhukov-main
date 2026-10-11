@@ -33,7 +33,7 @@
                     </div>
 
                     {{-- Doodle arrow --}}
-                    <svg class="brutal-doodle" style="bottom:-110px;left:32px;width:80px;height:80px;pointer-events:none;" viewBox="0 0 80 80" fill="none" stroke="var(--brutal-accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="brutal-doodle" style="position:static !important;display:block;margin:16px 0 0 32px;width:80px;height:80px;pointer-events:none;" viewBox="0 0 80 80" fill="none" stroke="var(--brutal-accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M8 8 C 20 40, 38 58, 64 68" />
                         <path d="M50 58 L 66 70 L 54 76" stroke-width="4" />
                     </svg>
