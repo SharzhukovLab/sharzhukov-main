@@ -1,7 +1,7 @@
 @php
     $joinedYear = $user->created_at?->format('Y') ?? '—';
     $joinedDate = $user->created_at?->format('M Y') ?? '—';
-    $socials    = $user->social_links_list ?? [];
+    $socials    = is_array($user->social_links) ? $user->social_links : [];
     $badgeLabels = [];
 
     if ($user->isAdmin())         $badgeLabels[] = 'ADMIN';
@@ -82,12 +82,19 @@
                 </div>
             </div>
 
-            @if(count($socials))
+            @php
+                $renderedSocials = collect($socials)
+                    ->filter(fn ($s) => is_array($s) && !empty($s['url']) && !empty($s['platform']))
+                    ->values();
+            @endphp
+            @if($renderedSocials->isNotEmpty())
                 <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;">
-                    @foreach($socials as $platform => $link)
+                    @foreach($renderedSocials as $s)
                         @php
-                            $label = \App\Models\User::allowedSocialPlatforms()[$platform] ?? ucfirst($platform);
-                            $icon  = match($platform) {
+                            $platform = $s['platform'];
+                            $url      = $s['url'];
+                            $label    = \App\Models\User::allowedSocialPlatforms()[$platform] ?? ucfirst($platform);
+                            $icon     = match($platform) {
                                 'github'   => 'github',
                                 'twitter'  => 'twitter',
                                 'telegram' => 'send',
@@ -95,10 +102,13 @@
                                 'reddit'   => 'message-square',
                                 'youtube'  => 'youtube',
                                 'twitch'   => 'twitch',
+                                'website'  => 'globe',
+                                'mastodon' => 'at-sign',
+                                'linkedin' => 'linkedin',
                                 default    => 'link-2',
                             };
                         @endphp
-                        <a href="{{ $link }}" target="_blank" rel="noopener" class="lab-btn lab-btn--secondary" style="font-size:11px;padding:8px 12px;text-transform:uppercase;letter-spacing:0.06em;">
+                        <a href="{{ $url }}" target="_blank" rel="noopener nofollow ugc" class="lab-btn lab-btn--secondary" style="font-size:11px;padding:8px 12px;text-transform:uppercase;letter-spacing:0.06em;">
                             <x-dynamic-component :component="'lucide-' . $icon" style="width:14px;height:14px;" />
                             <span>{{ $label }}</span>
                         </a>
