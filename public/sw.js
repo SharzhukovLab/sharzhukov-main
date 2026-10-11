@@ -2,7 +2,7 @@
    version: 1.0.0
    site: Sharzhukov's Laboratory
 */
-const VERSION = 'v1.1.0';
+const VERSION = 'v1.2.0';
 const CACHE_NAME     = 'sharzhukov-main-' + VERSION;
 const CACHE_STATIC   = 'sharzhukov-main-static-' + VERSION;
 
