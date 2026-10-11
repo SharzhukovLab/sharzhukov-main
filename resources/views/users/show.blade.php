@@ -115,6 +115,18 @@
                     @endforeach
                 </div>
             @endif
+            {{-- Message button (DM) --}}
+            @auth
+                @if(auth()->id() !== $user->id)
+                    <div style="margin-top:24px;">
+                        <a href="https://account.sharzhukov.com/conversations/new/{{ $user->username }}"
+                           class="lab-btn lab-btn--primary"
+                           style="font-size:12px;padding:12px 20px;">
+                            MESSAGE →
+                        </a>
+                    </div>
+                @endif
+            @endauth
         </div>
     </section>
 
