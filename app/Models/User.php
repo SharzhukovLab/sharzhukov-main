@@ -264,12 +264,6 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
     /**
      * Проверка, является ли specs набором блоков (nested) или плоским (legacy).
      */
-    public static function isNestedSpecs(array $specs): bool
-    {
-        if (empty($specs)) return true;
-        $first = reset($specs);
-        return is_array($first) && isset($first['components']) && is_array($first['components']);
-    }
 
     /**
      * Список характеристик с человекочитаемыми метками и иконками.
