@@ -37,7 +37,8 @@ class UserForm
                             ->avatar()
                             ->disk('public')
                             ->directory('avatars')
-                            ->maxSize(2048),
+                            ->maxSize(2048)
+                            ->dehydrated(fn ($state) => filled($state)),
 
                         Textarea::make('bio')
                             ->rows(3)

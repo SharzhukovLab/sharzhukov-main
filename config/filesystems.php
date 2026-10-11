@@ -46,7 +46,7 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => '/var/www/main_shrz_usr/data/www/sharzhukov.com/storage/app/public',
+            'root' => '/var/www/main_shrz_usr/data/www/main.sharzhukov.com/storage/app/public',
             'url' => 'https://sharzhukov.com/storage',
             'visibility' => 'public',
             'throw' => false,
