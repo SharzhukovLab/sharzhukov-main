@@ -5,3 +5,7 @@
 
 @source "../../vendor/sharzhukov/lab-ui/resources/views";
 @source "../views";
+::selection {
+    background: #ff5c1f;
+    color: #ffffff;
+}
