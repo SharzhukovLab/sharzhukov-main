@@ -31,12 +31,6 @@
                             <x-lucide-star style="width:16px;height:16px;" fill="currentColor" /> STAR ON GITHUB
                         </x-lab::button>
                     </div>
-
-                    {{-- Doodle arrow --}}
-                    <svg class="brutal-doodle" style="position:static !important;display:block;margin:16px 0 0 32px;width:80px;height:80px;pointer-events:none;" viewBox="0 0 80 80" fill="none" stroke="var(--brutal-accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M8 8 C 20 40, 38 58, 64 68" />
-                        <path d="M50 58 L 66 70 L 54 76" stroke-width="4" />
-                    </svg>
                 </div>
 
                 {{-- RIGHT: Terminal --}}
@@ -329,17 +323,17 @@
             <div class="brutal-newsletter">
                 <div>
                     <p style="font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--brutal-accent);margin:0 0 12px;">// NEWSLETTER</p>
-                    <h2 style="font-family:var(--font-sans);font-weight:900;font-size:clamp(1.75rem,3.5vw,2.5rem);letter-spacing:-0.03em;line-height:1.05;margin:0 0 12px;color:var(--lab-bg);">
+                    <h2 style="font-family:var(--font-sans);font-weight:900;font-size:clamp(1.75rem,3.5vw,2.5rem);letter-spacing:-0.03em;line-height:1.05;margin:0 0 12px;color:#ffffff;">
                         Get lab notes<br>in your inbox.
                     </h2>
-                    <p style="color:rgba(255,255,255,.7);font-size:14px;margin:0;line-height:1.6;">
+                    <p style="color:#94a3b8;font-size:14px;margin:0;line-height:1.6;">
                         Monthly digest — new projects, blog posts, and behind-the-scenes. No spam.
                     </p>
                 </div>
                 <form method="POST" action="{{ url('/newsletter/subscribe') }}" style="display:flex;flex-direction:column;gap:12px;">
                     @csrf
                     <input type="email" name="email" required placeholder="you@example.com">
-                    <x-lab::button variant="primary" type="submit" style="background:#fff !important;color:var(--brutal-border) !important;border-color:var(--brutal-border) !important;">
+                    <x-lab::button variant="primary" type="submit" style="background:#ff5c1f !important;color:#ffffff !important;border-color:#ff5c1f !important;">
                         SUBSCRIBE →
                     </x-lab::button>
                 </form>
