@@ -33,9 +33,9 @@
                     </div>
 
                     {{-- Doodle arrow --}}
-                    <svg class="brutal-doodle" style="bottom:-30px;left:20px;width:60px;height:60px;" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 5 C 15 35, 30 45, 50 52" />
-                        <path d="M40 42 L 52 52 L 42 55" />
+                    <svg class="brutal-doodle" style="bottom:-40px;left:24px;width:80px;height:80px;" viewBox="0 0 80 80" fill="none" stroke="var(--brutal-accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8 8 C 20 40, 38 58, 64 68" />
+                        <path d="M50 58 L 66 70 L 54 76" stroke-width="4" />
                     </svg>
                 </div>
 
