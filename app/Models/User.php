@@ -233,7 +233,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
     /**
      * Возможные типы модулей характеристик.
      */
-    public static function specTypes(): array
+        public static function specTypes(): array
     {
         return [
             'cpu'         => ['label' => 'CPU'],
@@ -252,6 +252,13 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
             'network'     => ['label' => 'Network'],
             'custom'      => ['label' => 'Other'],
         ];
+    }
+
+    public static function isNestedSpecs(array $specs): bool
+    {
+        if (empty($specs)) return true;
+        $first = reset($specs);
+        return is_array($first) && isset($first['components']) && is_array($first['components']);
     }
 
     /**
@@ -275,12 +282,12 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
      *   ...
      * ]
      */
-    public function getTeamSpecsListAttribute(): array
+        public function getTeamSpecsListAttribute(): array
     {
         $types = self::specTypes();
         $list  = [];
 
-        // ── Nested: [{name, components:[{type,value}]}] ──
+        // Nested: [{name, components:[{type,value}]}]
         if (!empty($this->team_specs_data) && self::isNestedSpecs($this->team_specs_data)) {
             foreach ($this->team_specs_data as $block) {
                 if (!is_array($block)) continue;
@@ -305,7 +312,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
             return $list;
         }
 
-        // ── Legacy flat: [{type,value}] → оборачиваем в "Main PC" ──
+        // Legacy flat
         if (!empty($this->team_specs_data) && is_array($this->team_specs_data)) {
             $items = [];
             foreach ($this->team_specs_data as $spec) {
@@ -319,13 +326,11 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
                     'value' => $val,
                 ];
             }
-            if (!empty($items)) {
-                $list[] = ['name' => 'Main PC', 'items' => $items];
-            }
+            if (!empty($items)) $list[] = ['name' => 'Main PC', 'items' => $items];
             return $list;
         }
 
-        // ── Fallback: старый формат "A · B · C" ──
+        // Fallback: строка "A · B · C"
         if (!empty($this->team_specs)) {
             $parts = array_map('trim', explode('·', $this->team_specs));
             $items = [];
@@ -333,9 +338,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
                 if ($part === '') continue;
                 $items[] = ['type' => 'custom', 'label' => 'Other', 'value' => $part];
             }
-            if (!empty($items)) {
-                $list[] = ['name' => 'Main PC', 'items' => $items];
-            }
+            if (!empty($items)) $list[] = ['name' => 'Main PC', 'items' => $items];
         }
 
         return $list;
