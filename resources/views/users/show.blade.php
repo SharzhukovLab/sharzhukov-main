@@ -2,16 +2,27 @@
     $joinedYear = $user->created_at?->format('Y') ?? '—';
     $joinedDate = $user->created_at?->format('M Y') ?? '—';
     $socials    = $user->social_links_list ?? [];
-    $badges     = [];
+    $badgeLabels = [];
 
-    if ($user->isAdmin())         $badges[] = ['label' => 'ADMIN',     'color' => 'accent'];
-    elseif ($user->isModerator()) $badges[] = ['label' => 'MODERATOR', 'color' => 'accent'];
-    elseif ($user->isEditor())    $badges[] = ['label' => 'EDITOR',    'color' => 'accent'];
+    if ($user->isAdmin())         $badgeLabels[] = 'ADMIN';
+    elseif ($user->isModerator()) $badgeLabels[] = 'MODERATOR';
+    elseif ($user->isEditor())    $badgeLabels[] = 'EDITOR';
 
-    if ($user->show_in_team && $user->team_role) $badges[] = ['label' => 'TEAM',    'color' => 'dark'];
-    if ($user->is_trusted)                        $badges[] = ['label' => 'TRUSTED', 'color' => 'success'];
-    if ($user->email_verified_at)                 $badges[] = ['label' => 'VERIFIED','color' => 'info'];
-    if ($user->two_factor_confirmed_at)           $badges[] = ['label' => '2FA',     'color' => 'dark'];
+    if ($user->show_in_team && $user->team_role) $badgeLabels[] = 'TEAM';
+    if ($user->is_trusted)                        $badgeLabels[] = 'TRUSTED';
+    if ($user->email_verified_at)                 $badgeLabels[] = 'VERIFIED';
+    if ($user->two_factor_confirmed_at)           $badgeLabels[] = '2FA';
+
+    // Чередуем: accent → dark → outline → dark → outline ...
+    $badges = [];
+    foreach ($badgeLabels as $i => $label) {
+        $color = match(true) {
+            $i === 0 => 'accent',                // первый всегда accent (важно: admin/role)
+            $i % 2 === 1 => 'dark',
+            default => 'outline',
+        };
+        $badges[] = ['label' => $label, 'color' => $color];
+    }
 @endphp
 
 <x-layouts.public :title="$user->name . ' (@' . $user->username . ') — Sharzhukov\'s Laboratory'">
