@@ -24,3 +24,5 @@ Thumbs.db/.env.local
 # local backups
 *.bak
 *.pre-*.bak
+team_specs_data
+test-np0z-
