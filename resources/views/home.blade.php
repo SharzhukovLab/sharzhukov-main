@@ -71,7 +71,7 @@
                 </h2>
                 <p style="color:var(--lab-fg-muted);font-size:16px;margin:0;font-weight:500;max-width:520px;">Tools we use to ship fast and stay boring.</p>
             </div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;">
+            <div class="lab-stack-grid">
                 @foreach(['Laravel','PHP 8.4','MySQL','Alpine.js','Vite','Tailwind v4','Filament 4','Livewire','Redis','Docker','GitHub Actions','Cloudflare'] as $tech)
                     <div class="brutal-card" style="padding:18px 20px;box-shadow:4px 4px 0 var(--brutal-shadow);">
                         <div style="display:flex;align-items:center;gap:12px;">
