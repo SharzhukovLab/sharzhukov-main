@@ -35,10 +35,6 @@ Route::post('/contact', [ContactController::class, 'store'])
 
 Route::get('/u/{username}', [UserController::class, 'show'])->name('users.show');
 
-// ─── Catch-all for CMS pages (must be last) ───
-Route::get('/{slug}', [PageController::class, 'show'])
-    ->name('pages.show')
-    ->where('slug', '[a-z0-9-]+');
 
 // ─── API / forms ───
 Route::post('/api/cookie-consent', [CookieConsentController::class, 'store'])->name('cookie-consent.store');
@@ -49,3 +45,8 @@ Route::get('/newsletter/unsubscribe/{token}', [NewsletterController::class, 'uns
 
 // ── Health check (uptime monitoring) ──
 Route::get('/health', \App\Http\Controllers\HealthController::class)->name('health');
+
+// ─── Catch-all for CMS pages (MUST BE LAST!) ───
+Route::get('/{slug}', [PageController::class, 'show'])
+    ->name('pages.show')
+    ->where('slug', '[a-z0-9-]+');
