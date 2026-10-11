@@ -67,44 +67,7 @@
         </div>
     </section>
 
-    
-
-    {{-- STATS BAR --}}
-    <section style="padding:0;border-bottom:3px solid var(--brutal-border);background:var(--lab-bg-elevated);">
-        <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
-            <div style="padding:32px 24px;border-right:2px solid var(--brutal-border);">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2M4 7v12a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7M4 7h16"/></svg>
-                    <span style="font-family:var(--font-mono);font-size:36px;font-weight:700;letter-spacing:-0.03em;line-height:1;">{{ $stats['projects'] }}@if($stats['projects'] > 0)+@endif</span>
-                </div>
-                <span class="brutal-marker">PROJECTS</span>
-            </div>
-            <div style="padding:32px 24px;border-right:2px solid var(--brutal-border);">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brutal-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    <span style="font-family:var(--font-mono);font-size:36px;font-weight:700;letter-spacing:-0.03em;line-height:1;color:var(--brutal-accent);">{{ $stats['contributors'] }}</span>
-                </div>
-                <span class="brutal-marker">CONTRIBUTORS</span>
-            </div>
-            <div style="padding:32px 24px;border-right:2px solid var(--brutal-border);">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
-                    <span style="font-family:var(--font-mono);font-size:36px;font-weight:700;letter-spacing:-0.03em;line-height:1;">@if($stats['stars'] >= 1000){{ number_format($stats['stars'] / 1000, 1) }}k@else{{ $stats['stars'] }}@endif</span>
-                </div>
-                <span class="brutal-marker">GITHUB STARS</span>
-            </div>
-            <div style="padding:32px 24px;">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brutal-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg>
-                    <span style="font-family:var(--font-mono);font-size:36px;font-weight:700;letter-spacing:-0.03em;line-height:1;color:var(--brutal-accent);">100%</span>
-                </div>
-                <span class="brutal-marker">OPEN SOURCE</span>
-            </div>
-        </div>
-    </section>
-
-    
-    {{-- TECH STACK --}}
+{{-- TECH STACK --}}
     <section class="brutal-grid-bg" style="padding:80px 24px;border-bottom:3px solid var(--brutal-border);background:var(--lab-bg-elevated);">
         <div style="max-width:1200px;margin:0 auto;">
             <div style="margin-bottom:40px;">
@@ -238,7 +201,6 @@
     </section>
 
     
-
 
     {{-- CONTACTS / COMMUNITY --}}
     <section class="brutal-grid-bg" style="padding:0 24px;">
@@ -384,7 +346,6 @@
             </div>
         </div>
     </section>
-
 
     {{-- CTA --}}
     <section class="brutal-grid-bg" style="padding:100px 24px;">
