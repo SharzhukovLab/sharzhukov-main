@@ -13,7 +13,9 @@ class UserController extends Controller
 {
     public function show(string $username): View
     {
-        $user = User::where('username', $username)->firstOrFail();
+        $user = User::where('username', $username)
+            ->withCount(['followers', 'following'])
+            ->firstOrFail();
 
         // 404 для banned / удалённых
         if ($user->is_banned || $user->deletion_requested_at) {
@@ -47,6 +49,10 @@ class UserController extends Controller
 
         $canonicalUrl = route('users.show', $user->username);
 
-        return view('users.show', compact('user', 'projects', 'stats', 'canonicalUrl'));
+        $isFollowing = auth()->check() && auth()->user()->id !== $user->id
+            ? auth()->user()->isFollowing($user)
+            : false;
+
+        return view('users.show', compact('user', 'projects', 'stats', 'canonicalUrl', 'isFollowing'));
     }
 }

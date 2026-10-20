@@ -23,5 +23,11 @@
                 <x-lab::button variant="secondary" href="{{ $news->external_url }}" target="_blank">Read more ↗</x-lab::button>
             </div>
         @endif
+
+    
+    <div style="max-width:720px;margin:0 auto;padding:0 24px;">
+        <x-lab::reactions :subject="$news" subject-type="news" variant="bar" />
+    </div>
+<x-lab::comments :subject="$news" subject-type="news" />
     </article>
 </x-layouts.public>

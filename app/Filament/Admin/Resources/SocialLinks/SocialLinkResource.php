@@ -35,7 +35,7 @@ class SocialLinkResource extends Resource
                 TextInput::make('name')->required()->maxLength(255),
                 TextInput::make('url')->url()->required()->maxLength(500),
                 TextInput::make('icon_key')->maxLength(100)->helperText('github, discord, telegram, x, reddit'),
-                TextInput::make('accent')->maxLength(20)->helperText('HEX цвет, e.g. #ff5c1f'),
+                TextInput::make('accent')->maxLength(20)->helperText('HEX цвет, e.g. #2563eb'),
                 Textarea::make('description')->rows(3)->columnSpanFull(),
                 TextInput::make('order')->numeric()->default(0),
                 Toggle::make('is_published')->default(true),

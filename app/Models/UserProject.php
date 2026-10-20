@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+
+use App\Models\Concerns\Reactable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
@@ -12,6 +14,8 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 #[ObservedBy([UserProjectObserver::class])]
 class UserProject extends Model
 {
+    use Reactable;
+
     use SoftDeletes;
 
     protected $fillable = [

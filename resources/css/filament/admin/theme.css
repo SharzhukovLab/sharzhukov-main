@@ -18,10 +18,10 @@
 
 .fi-sidebar {
     background: #0a0b12 !important;
-    border-right: 2px solid #ff5c1f !important;
+    border-right: 2px solid #2563eb !important;
 }
 .fi-sidebar-header {
-    border-bottom: 2px solid #ff5c1f !important;
+    border-bottom: 2px solid #2563eb !important;
     background: #0a0b12 !important;
 }
 .fi-sidebar-group-label,
@@ -33,24 +33,24 @@
     text-transform: uppercase;
     font-size: 12px !important;
 }
-.fi-sidebar-group-label { color: #ff5c1f !important; font-weight: 700; }
+.fi-sidebar-group-label { color: #2563eb !important; font-weight: 700; }
 .fi-sidebar-item { border-left: 3px solid transparent; transition: all 0.15s ease; }
 .fi-sidebar-item:hover {
-    background: rgba(255,92,31,0.08) !important;
-    border-left-color: #ff5c1f;
+    background: rgba(37,99,235,0.08) !important;
+    border-left-color: #2563eb;
 }
 .fi-sidebar-item.fi-active,
 .fi-sidebar-item[aria-current="page"] {
-    background: rgba(255,92,31,0.15) !important;
-    border-left-color: #ff5c1f !important;
+    background: rgba(37,99,235,0.15) !important;
+    border-left-color: #2563eb !important;
 }
 .fi-sidebar-item.fi-active .fi-sidebar-item-label,
 .fi-sidebar-item[aria-current="page"] .fi-sidebar-item-label {
-    color: #ff5c1f !important; font-weight: 900;
+    color: #2563eb !important; font-weight: 900;
 }
 .fi-sidebar-item-icon { color: #f0f0f0 !important; }
 .fi-sidebar-item.fi-active .fi-sidebar-item-icon,
-.fi-sidebar-item[aria-current="page"] .fi-sidebar-item-icon { color: #ff5c1f !important; }
+.fi-sidebar-item[aria-current="page"] .fi-sidebar-item-icon { color: #2563eb !important; }
 
 .fi-topbar {
     background: #ffffff !important;
@@ -58,7 +58,7 @@
 }
 .dark .fi-topbar {
     background: #0a0b12 !important;
-    border-bottom-color: #ff5c1f !important;
+    border-bottom-color: #2563eb !important;
 }
 
 .fi-main, .fi-body { background: #ffffff; }
@@ -82,10 +82,10 @@
 }
 .dark .fi-btn {
     border-color: #f0f0f0 !important;
-    box-shadow: 3px 3px 0 #ff5c1f !important;
+    box-shadow: 3px 3px 0 #2563eb !important;
 }
-.dark .fi-btn:hover { box-shadow: 5px 5px 0 #ff5c1f !important; }
-.fi-btn-color-primary { background: #ff5c1f !important; color: #ffffff !important; }
+.dark .fi-btn:hover { box-shadow: 5px 5px 0 #2563eb !important; }
+.fi-btn-color-primary { background: #2563eb !important; color: #ffffff !important; }
 .fi-btn-color-danger  { background: #dc2626 !important; }
 
 .fi-input, .fi-select, .fi-textarea, .fi-input-wrp {
@@ -97,8 +97,8 @@
 }
 .fi-input:focus, .fi-select:focus, .fi-textarea:focus {
     outline: none !important;
-    box-shadow: 3px 3px 0 #ff5c1f !important;
-    border-color: #ff5c1f !important;
+    box-shadow: 3px 3px 0 #2563eb !important;
+    border-color: #2563eb !important;
 }
 .dark .fi-input, .dark .fi-select, .dark .fi-textarea, .dark .fi-input-wrp {
     border-color: #f0f0f0 !important;
@@ -114,7 +114,7 @@
 }
 .dark .fi-section, .dark .fi-wi-stats-overview-stat, .dark .fi-ta {
     border-color: #f0f0f0 !important;
-    box-shadow: 4px 4px 0 #ff5c1f !important;
+    box-shadow: 4px 4px 0 #2563eb !important;
     background: #12131c !important;
 }
 
@@ -128,8 +128,8 @@
 }
 .dark .fi-ta-header-cell { border-bottom-color: #f0f0f0 !important; }
 .fi-ta-row { border-bottom: 1px solid rgba(10,11,18,0.08) !important; }
-.fi-ta-row:hover { background: rgba(255,92,31,0.04) !important; }
-.dark .fi-ta-row:hover { background: rgba(255,92,31,0.08) !important; }
+.fi-ta-row:hover { background: rgba(37,99,235,0.04) !important; }
+.dark .fi-ta-row:hover { background: rgba(37,99,235,0.08) !important; }
 
 .fi-badge {
     border-radius: 0 !important;
@@ -147,8 +147,8 @@
     box-shadow: 8px 8px 0 #0a0b12 !important;
 }
 .dark .fi-modal-window {
-    border-color: #ff5c1f !important;
-    box-shadow: 8px 8px 0 #ff5c1f !important;
+    border-color: #2563eb !important;
+    box-shadow: 8px 8px 0 #2563eb !important;
 }
 
 .fi-dropdown-panel {
@@ -172,7 +172,7 @@
     font-size: 11px !important;
     font-weight: 700 !important;
 }
-.fi-tabs-item.fi-active { background: #ff5c1f !important; color: #ffffff !important; }
+.fi-tabs-item.fi-active { background: #2563eb !important; color: #ffffff !important; }
 
 .fi-wi-stats-overview-stat-value {
     font-family: 'Inter', sans-serif !important;
@@ -190,7 +190,7 @@
 /* ═══════════════ HEADINGS — brutal prefix // ═══════════════ */
 .fi-header-heading::before {
     content: '// ';
-    color: #ff5c1f;
+    color: #2563eb;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
     margin-right: 4px;
@@ -212,7 +212,7 @@
     text-transform: uppercase;
 }
 .fi-breadcrumbs-item-label {
-    color: #ff5c1f !important;
+    color: #2563eb !important;
     font-weight: 700;
 }
 
@@ -246,12 +246,12 @@ select.fi-select-input {
     transition: all 0.15s ease;
 }
 .fi-select-input:hover {
-    box-shadow: 3px 3px 0 #ff5c1f !important;
+    box-shadow: 3px 3px 0 #2563eb !important;
 }
 .fi-select-input:focus {
     outline: none !important;
-    box-shadow: 3px 3px 0 #ff5c1f !important;
-    border-color: #ff5c1f !important;
+    box-shadow: 3px 3px 0 #2563eb !important;
+    border-color: #2563eb !important;
 }
 .dark .fi-select-input,
 .dark select.fi-select-input {
@@ -314,9 +314,9 @@ select.fi-select-input {
 }
 .fi-pagination-item button:hover,
 .fi-pagination-item a:hover {
-    background: #ff5c1f !important;
+    background: #2563eb !important;
     color: #ffffff !important;
-    border-color: #ff5c1f !important;
+    border-color: #2563eb !important;
 }
 .dark .fi-pagination-item,
 .dark .fi-pagination-item button,
@@ -353,14 +353,14 @@ select.fi-select-input {
 }
 .fi-topbar .fi-icon-btn:hover {
     transform: translate(-1px, -1px);
-    box-shadow: 3px 3px 0 #ff5c1f !important;
-    background: #ff5c1f !important;
+    box-shadow: 3px 3px 0 #2563eb !important;
+    background: #2563eb !important;
     color: #ffffff !important;
 }
 .dark .fi-topbar .fi-icon-btn {
     border-color: #f0f0f0 !important;
     background: #12131c !important;
-    box-shadow: 2px 2px 0 #ff5c1f !important;
+    box-shadow: 2px 2px 0 #2563eb !important;
 }
 
 /* ═══════════════ TOGGLE / SWITCH ═══════════════ */
@@ -409,7 +409,7 @@ button[role="switch"] {
     font-weight: 700;
 }
 .fi-fo-rich-editor-toolbar button:hover {
-    background: #ff5c1f !important;
+    background: #2563eb !important;
     color: #ffffff !important;
 }
 
@@ -420,26 +420,26 @@ button[role="switch"] {
 }
 .fi-wi-stats-overview-stat:hover {
     transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 #ff5c1f !important;
+    box-shadow: 6px 6px 0 #2563eb !important;
 }
 
 /* ═══════════════ SIDEBAR — collapse button ═══════════════ */
 .fi-sidebar-toggle,
 .fi-sidebar-header .fi-icon-btn {
-    color: #ff5c1f !important;
-    border: 2px solid #ff5c1f !important;
+    color: #2563eb !important;
+    border: 2px solid #2563eb !important;
     border-radius: 0 !important;
     background: transparent !important;
 }
 .fi-sidebar-toggle:hover,
 .fi-sidebar-header .fi-icon-btn:hover {
-    background: #ff5c1f !important;
+    background: #2563eb !important;
     color: #ffffff !important;
 }
 
 /* ═══════════════ LINKS — arrows ═══════════════ */
 .fi-link, a.fi-link {
-    color: #ff5c1f !important;
+    color: #2563eb !important;
     font-weight: 700;
     text-decoration: none;
 }

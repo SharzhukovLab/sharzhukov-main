@@ -55,7 +55,7 @@ $content = <<<HTML
     <li><strong>Database:</strong> MySQL 8, Redis-compatible cache layer</li>
     <li><strong>Frontend:</strong> Tailwind CSS 4, Vite, vanilla JS where it counts, Inter &amp; JetBrains Mono</li>
     <li><strong>Infrastructure:</strong> Ubuntu 24.04 server in the Netherlands (Aeza), Cloudflare in front, Resend for email</li>
-    <li><strong>Design:</strong> Neo-brutalist, single accent color (<code>#ff5c1f</code>), thick borders, offset shadows, zero-radius corners</li>
+    <li><strong>Design:</strong> Neo-brutalist, single accent color (<code>#2563eb</code>), thick borders, offset shadows, zero-radius corners</li>
 </ul>
 
 <h2>Who's behind this</h2>

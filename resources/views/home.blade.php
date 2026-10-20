@@ -9,7 +9,7 @@
                 <div style="position:relative;">
                     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;">
                         @foreach($heroBadges as $idx => $badge)
-                            <span class="brutal-badge {{ $idx === 0 ? 'brutal-badge--dark' : ($idx === 1 ? 'brutal-badge--orange' : '') }}">{{ $badge['text'] }}</span>
+                            <span class="brutal-badge {{ $idx === 0 ? 'brutal-badge--dark' : ($idx === 1 ? 'brutal-badge--accent' : '') }}">{{ $badge['text'] }}</span>
                         @endforeach
                     </div>
 
@@ -142,7 +142,7 @@
                             <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px;">
                                 <span class="brutal-badge">PRJ-{{ str_pad($project->id, 3, '0', STR_PAD_LEFT) }}</span>
                                 @if($project->is_featured)
-                                    <span class="brutal-badge brutal-badge--orange">FEATURED</span>
+                                    <span class="brutal-badge brutal-badge--accent">FEATURED</span>
                                 @endif
                             </div>
                             <h3 style="margin:0 0 10px;font-size:20px;font-weight:800;letter-spacing:-0.02em;line-height:1.2;">{{ $project->title }}</h3>
@@ -182,7 +182,7 @@
                     @foreach($news as $item)
                         <a href="{{ route('news.show', $item) }}" class="brutal-card">
                             <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;">
-                                <span class="brutal-badge brutal-badge--orange">{{ strtoupper($item->category) }}</span>
+                                <span class="brutal-badge brutal-badge--accent">{{ strtoupper($item->category) }}</span>
                                 <span style="font-family:var(--font-mono);font-size:11px;font-weight:700;opacity:.6;">{{ $item->published_at?->format('Y-m-d') }}</span>
                             </div>
                             <h3 style="margin:0 0 10px;font-size:18px;font-weight:800;letter-spacing:-0.02em;line-height:1.3;">{{ $item->title }}</h3>
@@ -333,7 +333,7 @@
                 <form method="POST" action="{{ url('/newsletter/subscribe') }}" style="display:flex;flex-direction:column;gap:12px;">
                     @csrf
                     <input type="email" name="email" required placeholder="you@example.com">
-                    <x-lab::button variant="primary" type="submit" style="background:#ff5c1f !important;color:#ffffff !important;border-color:#ff5c1f !important;">
+                    <x-lab::button variant="primary" type="submit" style="background:#2563eb !important;color:#ffffff !important;border-color:#2563eb !important;">
                         SUBSCRIBE →
                     </x-lab::button>
                 </form>

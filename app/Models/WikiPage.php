@@ -2,6 +2,11 @@
 
 namespace App\Models;
 
+
+
+use App\Observers\WikiPageObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use App\Models\Concerns\Reactable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,8 +22,11 @@ use League\CommonMark\MarkdownConverter;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
+#[ObservedBy([\App\Observers\WikiPageObserver::class])]
 class WikiPage extends Model
 {
+    use Reactable;
+
     use HasFactory, HasSlug, Searchable;
 
     protected $fillable = [

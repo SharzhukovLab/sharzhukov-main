@@ -28,7 +28,7 @@ class WikiTagForm
                 ->unique(ignoreRecord: true),
 
             ColorPicker::make('color')
-                ->default('#ff5c1f'),
+                ->default('#2563eb'),
         ])->columns(2);
     }
 }

@@ -103,7 +103,7 @@
     <style>
         .cat-card-active {
             border-color: var(--brutal-accent) !important;
-            background: rgba(255,92,31,0.06) !important;
+            background: rgba(37,99,235,0.06) !important;
             transform: translate(-2px,-2px);
             box-shadow: 5px 5px 0 var(--brutal-shadow) !important;
         }

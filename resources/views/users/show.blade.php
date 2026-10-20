@@ -115,18 +115,19 @@
                     @endforeach
                 </div>
             @endif
-            {{-- Message button (DM) --}}
-            @auth
-                @if(auth()->id() !== $user->id)
-                    <div style="margin-top:24px;">
+            {{-- Actions: FOLLOW + MESSAGE --}}
+            @if(!auth()->check() || auth()->id() !== $user->id)
+                <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
+                    <x-lab::follow-button :user="$user" :following="$isFollowing" />
+                    @auth
                         <a href="https://account.sharzhukov.com/conversations/new/{{ $user->username }}"
                            class="lab-btn lab-btn--primary"
                            style="font-size:12px;padding:12px 20px;">
                             MESSAGE →
                         </a>
-                    </div>
-                @endif
-            @endauth
+                    @endauth
+                </div>
+            @endif
         </div>
     </section>
 
@@ -138,10 +139,12 @@
                 ['value' => $stats['comments'], 'label' => 'Comments'],
                 ['value' => $stats['news'],     'label' => 'News'],
                 ['value' => $stats['wiki'],     'label' => 'Wiki pages'],
+                ['value' => $user->followers_count ?? 0, 'label' => 'Followers', 'attr' => 'data-followers-count'],
+                ['value' => $user->following_count ?? 0, 'label' => 'Following'],
                 ['value' => $joinedYear,        'label' => 'Member since'],
             ] as $s)
                 <div class="brutal-card" style="padding:18px;">
-                    <div style="font-family:var(--font-mono);font-weight:900;font-size:26px;line-height:1;color:var(--brutal-border);">{{ $s['value'] }}</div>
+                    <div {!! $s['attr'] ?? '' !!} style="font-family:var(--font-mono);font-weight:900;font-size:26px;line-height:1;color:var(--brutal-border);">{{ $s['value'] }}</div>
                     <div style="font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:0.1em;color:var(--lab-fg-muted);text-transform:uppercase;margin-top:8px;">{{ $s['label'] }}</div>
                 </div>
             @endforeach

@@ -56,5 +56,11 @@
                 @endforeach
             </div>
         @endif
+
+    
+    <div style="max-width:820px;margin:0 auto;padding:0 24px;">
+        <x-lab::reactions :subject="$project" subject-type="project" variant="bar" />
+    </div>
+<x-lab::comments :subject="$project" subject-type="project" />
     </article>
 </x-layouts.public>

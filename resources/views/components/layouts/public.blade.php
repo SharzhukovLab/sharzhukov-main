@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? "Sharzhukov's Laboratory" }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="theme-color" content="#ff5c1f">
+    <meta name="theme-color" content="#2563eb">
     {{-- Favicon --}}
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/branding/favicon-32x32.png">

@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\News;
 use App\Models\NewsletterSubscriber;
 use App\Models\UserProject;
+use App\Models\Activity;
 use App\Models\WikiCategory;
 use App\Models\WikiPage;
 use App\Notifications\ProjectPublishedNotification;
@@ -17,6 +18,7 @@ class UserProjectObserver
     {
         if ($project->status === 'approved') {
             $this->publish($project);
+            $this->recordActivity($project);
         }
     }
 
@@ -24,9 +26,24 @@ class UserProjectObserver
     {
         if ($project->wasChanged('status') && $project->status === 'approved') {
             $this->publish($project);
+            $this->recordActivity($project);
         }
     }
 
+    protected function recordActivity(UserProject $project): void
+    {
+        if (! $project->user) return;
+
+        Activity::record(
+            $project->user,
+            'project_approved',
+            $project,
+            [
+                'title' => $project->title,
+                'slug'  => $project->slug,
+            ]
+        );
+    }
     protected function publish(UserProject $project): void
     {
         try { $this->createWikiPage($project); }       catch (\Throwable $e) { Log::warning('[observer] wiki failed', ['id'=>$project->id,'err'=>$e->getMessage()]); }

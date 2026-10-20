@@ -75,7 +75,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
         $initial = htmlspecialchars($initial, ENT_XML1, 'UTF-8');
 
         $svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">'
-             . '<rect width="128" height="128" fill="#ff5c1f"/>'
+             . '<rect width="128" height="128" fill="#2563eb"/>'
              . '<text x="64" y="84" font-family="-apple-system,BlinkMacSystemFont,sans-serif" '
              . 'font-size="60" font-weight="900" fill="#ffffff" text-anchor="middle" '
              . 'letter-spacing="-2">' . $initial . '</text>'
@@ -450,5 +450,47 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
         return Conversation::whereHas('users', fn($q) => $q->where('users.id', $this->id))
             ->get()
             ->sum(fn($c) => $c->unreadCountFor($this->id));
+    }
+
+    public function followers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followee_id', 'follower_id')
+            ->withTimestamps();
+    }
+
+    public function following(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followee_id')
+            ->withTimestamps();
+    }
+
+    public function isFollowing(User $user): bool
+    {
+        if ($this->is($user)) return false;
+        return \App\Models\Follow::where('follower_id', $this->id)
+            ->where('followee_id', $user->id)
+            ->exists();
+    }
+
+    public function follow(User $user): bool
+    {
+        if ($this->is($user)) return false;
+        try {
+            \App\Models\Follow::create([
+                'follower_id' => $this->id,
+                'followee_id' => $user->id,
+            ]);
+            return true;
+        } catch (\Illuminate\Database\QueryException $e) {
+            if (($e->errorInfo[1] ?? null) === 1062) return false;
+            throw $e;
+        }
+    }
+
+    public function unfollow(User $user): void
+    {
+        \App\Models\Follow::where('follower_id', $this->id)
+            ->where('followee_id', $user->id)
+            ->delete();
     }
 }

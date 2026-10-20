@@ -49,7 +49,7 @@ class AdminPanelProvider extends PanelProvider
                     ->openUrlInNewTab(),
             ])
             ->colors([
-                'primary' => Color::hex('#ff5c1f'),
+                'primary' => Color::hex('#2563eb'),
             ])
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->navigationGroups([

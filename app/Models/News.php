@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+
+use App\Models\Concerns\Reactable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class News extends Model
 {
+    use Reactable;
+
     protected $table = 'news';
 
     protected $fillable = [

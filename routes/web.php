@@ -56,6 +56,39 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+
+// ─── Follows (must be BEFORE catch-all) ───
+Route::middleware('auth')->group(function () {
+    Route::post('/u/{user:username}/follow',   [\App\Http\Controllers\FollowController::class, 'store'])->name('follows.store');
+    Route::delete('/u/{user:username}/follow', [\App\Http\Controllers\FollowController::class, 'destroy'])->name('follows.destroy');
+});
+
+// ─── Activity Feed ───
+Route::middleware('auth')->group(function () {
+    Route::get('/feed', [\App\Http\Controllers\FeedController::class, 'index'])->name('feed.index');
+});
+// ─── Reactions ───
+Route::get('/api/reactions/{type}/{id}', [\App\Http\Controllers\ReactionsController::class, 'index'])
+    ->whereIn('type', ['news', 'project'])
+    ->name('reactions.index');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/api/reactions/toggle', [\App\Http\Controllers\ReactionsController::class, 'toggle'])->name('reactions.toggle');
+});
+// ─── Comments (public read, auth write) ───
+Route::get('/api/comments/{type}/{id}', [\App\Http\Controllers\CommentsController::class, 'index'])
+    ->whereIn('type', ['news', 'project'])
+    ->name('comments.index');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/api/comments', [\App\Http\Controllers\CommentsController::class, 'store'])->name('comments.store');
+    Route::delete('/api/comments/{comment}', [\App\Http\Controllers\CommentsController::class, 'destroy'])->name('comments.destroy');
+
+    // Модерация (сервер сам проверит isModerator)
+    Route::post('/api/comments/{comment}/approve', [\App\Http\Controllers\CommentsController::class, 'approve'])->name('comments.approve');
+    Route::post('/api/comments/{comment}/reject',  [\App\Http\Controllers\CommentsController::class, 'reject'])->name('comments.reject');
+    Route::post('/api/comments/{comment}/spam',    [\App\Http\Controllers\CommentsController::class, 'spam'])->name('comments.spam');
+});
 // ─── Catch-all for CMS pages (MUST BE LAST!) ───
 Route::get('/{slug}', [PageController::class, 'show'])
     ->name('pages.show')
