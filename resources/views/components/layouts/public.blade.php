@@ -29,7 +29,7 @@
         <script>
     (function () {
         var now   = new Date();
-        var start = new Date('2026-10-20T00:00:00Z');
+        var start = new Date('2026-10-25T00:00:00Z');
         var end   = new Date('2026-11-02T23:59:59Z');
         var inWindow = now >= start && now <= end;
         var pref = localStorage.getItem('hw-mode');
