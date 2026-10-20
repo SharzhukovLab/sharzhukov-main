@@ -1,4 +1,8 @@
 <x-layouts.public title="Sharzhukov's Laboratory — Open Source Collective" description="An open-source collective building tools for developers. Made in EU.">
+    <div class="max-w-7xl mx-auto px-4 pt-4">
+        <x-lab::halloween-banner />
+    </div>
+
 
     {{-- HERO (2 columns) --}}
     <section class="brutal-grid-bg" style="padding:80px 24px 80px;border-bottom:3px solid var(--brutal-border);">
